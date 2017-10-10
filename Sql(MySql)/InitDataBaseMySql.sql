@@ -20,4 +20,4 @@ create table if not exists usuario(id_usuario varchar(6) not null
 		, primary key (id_usuario));
 		
 insert into usuario(id_usuario, nombres, apellido, nacionalidad, tipo_doc, num_documento, fecha_nacimiento, ciudad, localidad)
-values('001327', 'Nicolas Daniel', 'Fernandez', 'Argentino', 'DNI', '20-34179142-2', STR_TO_DATE('02-11-1988','%d-%m-%Y'), 'Moreno', 'Moreno');
+values('001327', 'Nicolas Daniel', 'Fernandez', 'Argentino', 'DNI', '20-34182304-2', STR_TO_DATE('09-9-1988','%d-%m-%Y'), 'Moreno', 'Moreno');
