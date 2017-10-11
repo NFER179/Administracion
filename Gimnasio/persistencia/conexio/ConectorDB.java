@@ -12,7 +12,7 @@ public class ConectorDB {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			this.conexion = DriverManager.getConnection("jdbc:mysql://localhost", "root", "root");
+			this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/gimnasio", "root", "root");
 			this.statement = this.conexion.createStatement();
 		}
 		catch(Exception e) {
@@ -31,7 +31,8 @@ public class ConectorDB {
 	public Statement getStament() {
 		if (this.conexion == null || this.statement == null) {
 			try {
-				this.conexion = DriverManager.getConnection("jdbc.mysql://localhost:3306", "root", "root");
+				this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/gimnasio", "root", "root");
+				this.statement = this.conexion.createStatement();
 			}
 			catch(Exception e) {
 				e.printStackTrace();

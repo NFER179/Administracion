@@ -5,13 +5,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import dto.ClienteDTO;
+import modelo.ClienteModelo;
 import thread.LectorCod;
+import variables.IdCliente;
 import vista.Principal;
 
 public class CtrPrincipal implements ActionListener {
 
 	private Principal vt;
 	private LectorCod threadLector;
+	
+	private CtrInfoCliente ctrInfCliente;
 	
 	public CtrPrincipal() {
 		this.vt = new Principal();
@@ -51,11 +56,26 @@ public class CtrPrincipal implements ActionListener {
 		return this.vt.getTxtCodUsuario().getText();
 	}
 
+	/**
+	 * @author nfernandez
+	 * @Desciption Metodo para hacer pruebas rapidas de mostrar carteles.
+	 **/
 	public void mostrarMensaje(String string) {
 		JOptionPane.showMessageDialog(null, string);
 	}
 
 	public void limpiarCodUser() {
 		this.vt.getTxtCodUsuario().setText("");
+	}
+
+	/**
+	 * @author nfernandez
+	 * @param boolean (if de code is correct or not)
+	 * @return New Frame with customer information
+	 */
+	public void codigoCorrecto(boolean b) {
+		ClienteDTO clte = new ClienteModelo().getCliente(IdCliente.getStrId(this.vt.getTxtCodUsuario().getText()));
+		this.ctrInfCliente = new CtrInfoCliente(clte);
+		this.ctrInfCliente.init();
 	}
 }

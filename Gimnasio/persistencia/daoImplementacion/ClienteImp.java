@@ -7,6 +7,7 @@ import conexio.ConectorDB;
 import dao.ClienteDAO;
 import dto.ClienteDTO;
 import makeQuery.QueryManager;
+import variables.Fecha;
 import variables.IdCliente;
 
 public class ClienteImp implements ClienteDAO {
@@ -18,13 +19,13 @@ public class ClienteImp implements ClienteDAO {
 	}
 	
 	@Override
-	public ClienteDTO getCliente(IdCliente IdCliente) {
+	public ClienteDTO getCliente(IdCliente IdClt) {
 		
 		Statement stm;
 		
 		QueryManager qm = new QueryManager();
-		qm.selectAllFrom("USUARIO");
-		qm.addClausule("id_cliente", IdCliente.toString());
+		qm.selectAllFrom("CLIENTE");
+		qm.addClausule("id_cliente", IdClt.getIdCliente());
 		
 		ResultSet rs = null;
 		ClienteDTO cliente = null;
@@ -34,7 +35,47 @@ public class ClienteImp implements ClienteDAO {
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
-				cliente = new ClienteDTO();
+				cliente = new ClienteDTO(IdCliente.getStrId(rs.getString("id_cliente"))
+						, rs.getString("nombres")
+						, rs.getString("apellido")
+						, rs.getString("nacionalidad")
+						, rs.getString("tipo_doc")
+						, rs.getString("num_documento")
+						, Fecha.getFecha(rs.getString("fecha_nacimiento"))
+						, rs.getString("ciudad")
+						, rs.getString("localidad"));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+			
+		return cliente;
+	}
+
+	@Override
+	public int getIdLength() {
+		
+		String[] fields = {"MAX(id_cliente)"};
+		QueryManager qm = new QueryManager();
+		qm.selectFieldsFrom(fields, "CLIENTE");
+		
+		Statement stm;
+		ResultSet rs = null;
+		int lenth = 0;
+		
+		/* Impresion Query. (Test) */
+		//System.out.println("class.ClienteImp" + qm.getQueryTxt());
+		
+		try {
+			stm = this.cnt.getStament();
+			rs = stm.executeQuery(qm.getQueryTxt());
+			
+			while(rs.next()) {
+				lenth = rs.getString(1).toString().length();
 			}
 		}
 		catch(Exception e) {
@@ -44,6 +85,39 @@ public class ClienteImp implements ClienteDAO {
 			this.cnt.cerrarConexion();
 		}
 		
-		return cliente;
+		return lenth;
+	}
+
+	@Override
+	public boolean concideIdCliente(IdCliente idCliente) {
+		
+		String[] fields = {"'X'"};
+		QueryManager qm = new QueryManager();
+		qm.selectFieldsFrom(fields, "CLIENTE");
+		qm.addClausule("id_cliente", idCliente.getIdCliente());
+		
+		Statement stm;
+		ResultSet rs = null;
+		String exists = "";
+		
+		/* Impresion Query. (Test) */
+		System.out.println("class.ClienteImp" + qm.getQueryTxt());
+		
+		try {
+			stm = this.cnt.getStament();
+			rs = stm.executeQuery(qm.getQueryTxt());
+			
+			while(rs.next()) {
+				exists = rs.getString(1);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+		
+		return ((exists.isEmpty()) ? false : true);
 	}
 }

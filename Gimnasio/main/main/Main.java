@@ -19,9 +19,6 @@ public class Main {
 		}
 		
 		CtrPrincipal ctr01 = new CtrPrincipal();
-		
 		ctr01.init();
-
-		
 	}
 }

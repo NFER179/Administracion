@@ -8,6 +8,16 @@ public class QueryManager {
 		this.sqlTxt = "";
 	}
 	
+	public void selectFieldsFrom(String[] fields, String Record) {
+		this.sqlTxt = "SELECT " + fields[0];
+		
+		for(int i = 1; i < fields.length; i++) {
+			this.sqlTxt = this.sqlTxt + ", " + fields[i];
+		}
+		
+		this.sqlTxt = this.sqlTxt + " FROM " + Record;
+	}
+	
 	public void selectAllFrom(String Record) {
 		this.sqlTxt = "SELECT * FROM " + Record;
 	}
