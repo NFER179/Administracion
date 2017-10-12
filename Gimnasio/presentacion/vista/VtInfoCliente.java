@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +18,8 @@ public class VtInfoCliente extends JFrame {
 
 	private JLabel lblNombre;
 	private JTextField txtNombre;
+	
+	private JTextField txtVencimento;
 	
 	/**
 	 * Create the frame.
@@ -42,5 +45,16 @@ public class VtInfoCliente extends JFrame {
 		this.txtNombre.setEnabled(false);
 		//this.txtNombre.setEditable(false);
 		this.contentPane.add(this.txtNombre);
+		
+		this.txtVencimento = new JTextField();
+		this.txtVencimento.setColumns(10);
+		this.txtVencimento.setBounds(5, 90, 200, 30);
+		Font txtF = new Font(null, 0, 20);
+		this.txtVencimento.setFont(txtF);
+		this.contentPane.add(this.txtVencimento);
+	}
+	
+	public JTextField getTxtVencimiento() {
+		return this.txtVencimento;
 	}
 }

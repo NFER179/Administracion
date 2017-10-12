@@ -18,4 +18,11 @@ public interface ClienteDAO {
 	 * @return True if exists idCliente.
 	 */
 	public boolean concideIdCliente(IdCliente idCliente);
+
+	/**
+	 * @author nfernandez
+	 * @param _clte
+	 * @return true is customer take other class before.
+	 */
+	public boolean ingresoHoy(ClienteDTO _clte);
 }

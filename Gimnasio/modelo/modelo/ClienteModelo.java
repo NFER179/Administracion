@@ -29,4 +29,13 @@ public class ClienteModelo {
 			return false;
 		}
 	}
+
+	public void registrarIngreso(ClienteDTO _clte) {
+		if(this.clte.ingresoHoy(_clte)) {
+			
+		}
+		else {
+			
+		}
+	}
 }

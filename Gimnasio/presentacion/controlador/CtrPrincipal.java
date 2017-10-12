@@ -26,6 +26,7 @@ public class CtrPrincipal implements ActionListener {
 	}
 	
 	private void addListener() {
+		this.vt.getBtnRegistrarCliente().addActionListener(this);
 		this.vt.getBtnSalir().addActionListener(this);
 	}
 	
@@ -36,9 +37,12 @@ public class CtrPrincipal implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-			if(arg0.getSource() == this.vt.getBtnSalir()) {
-				this.salir();
-			}
+		if (arg0.getSource() == this.vt.getBtnRegistrarCliente()) {
+			
+		}
+		else if(arg0.getSource() == this.vt.getBtnSalir()) {
+			this.salir();
+		}
 	}
 
 	/**
@@ -77,5 +81,15 @@ public class CtrPrincipal implements ActionListener {
 		ClienteDTO clte = new ClienteModelo().getCliente(IdCliente.getStrId(this.vt.getTxtCodUsuario().getText()));
 		this.ctrInfCliente = new CtrInfoCliente(clte);
 		this.ctrInfCliente.init();
+		int i = 1;
+		while(i < 6 ) {
+			i++;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ctrInfCliente.terminar();
 	}
 }

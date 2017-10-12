@@ -101,7 +101,7 @@ public class ClienteImp implements ClienteDAO {
 		String exists = "";
 		
 		/* Impresion Query. (Test) */
-		System.out.println("class.ClienteImp" + qm.getQueryTxt());
+		//System.out.println("class.ClienteImp" + qm.getQueryTxt());
 		
 		try {
 			stm = this.cnt.getStament();
@@ -119,5 +119,38 @@ public class ClienteImp implements ClienteDAO {
 		}
 		
 		return ((exists.isEmpty()) ? false : true);
+	}
+
+	@Override
+	public boolean ingresoHoy(ClienteDTO _clte) {
+		
+		String[] fields = {"MAX(FECHA)"};
+		QueryManager qm = new QueryManager();
+		qm.selectFieldsFrom(fields, "CLIENTE_PRESENTISMO");
+		qm.addClausule("id_cliente", _clte.getIdCliente().getIdCliente());
+		
+		Statement stm = null;
+		ResultSet rs = null;
+		Fecha fecha = new Fecha(1, 1, 1900);
+		
+		/* Impresion Query. (Test) */
+		System.out.println("class.ClienteImp " + qm.getQueryTxt());
+		
+		try {
+			stm = this.cnt.getStament();
+			rs = stm.executeQuery(qm.getQueryTxt());
+			
+			while(rs.next()) {
+				fecha = Fecha.getFecha(rs.getString("fecha"));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+		
+		return ((fecha.isHoy()) ? true : false);
 	}
 }

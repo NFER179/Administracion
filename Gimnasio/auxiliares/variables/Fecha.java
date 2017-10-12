@@ -27,4 +27,9 @@ public class Fecha {
 				Integer.parseInt(ArrFecha[1]), 
 				Integer.parseInt(ArrFecha[0]));
 	}
+
+	public boolean isHoy() {
+		/* Falta desarrollar metodo. */
+		return false;
+	}
 }

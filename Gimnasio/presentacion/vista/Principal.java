@@ -1,5 +1,8 @@
 package vista;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +16,8 @@ public class Principal extends JFrame {
 	
 	private JLabel lblCodUsuario;
 	private JTextField txtCodUsuario;
+	
+	private JButton btnRegistrarCliente;
 	
 	private JButton btnSalir;
 
@@ -31,21 +36,35 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		
 		this.lblCodUsuario = new JLabel("Cod Usuario:");
-		this.lblCodUsuario.setBounds(5, 5, 80, 23);
+		this.lblCodUsuario.setBounds(5, 5, 80, 30);
 		this.contentPane.add(this.lblCodUsuario);
 		
 		this.txtCodUsuario = new JTextField();
 		this.txtCodUsuario.setColumns(10);
-		this.txtCodUsuario.setBounds(this.lblCodUsuario.getX() + this.lblCodUsuario.getWidth() + 5, 5, 120, 23);
+		Font txtF = new Font(null, 0, 20);
+		this.txtCodUsuario.setFont(txtF);
+		this.txtCodUsuario.setBounds(this.lblCodUsuario.getX() + this.lblCodUsuario.getWidth() + 5, 5, 120, 30);
 		this.contentPane.add(this.txtCodUsuario);
 		
+		this.btnRegistrarCliente = new JButton("Registrar Cliente");
+		this.btnRegistrarCliente.setBounds(5, 50, 200, 30);
+		this.contentPane.add(this.btnRegistrarCliente);
+		
 		this.btnSalir = new JButton("Salir");
-		this.btnSalir.setBounds(5, 40, 100, 23);
+		this.btnSalir.setBounds(5, 100, 100, 30);
+		Font f = new Font(null, Font.BOLD, 20);
+		this.btnSalir.setFont(f);
+		this.btnSalir.setForeground(Color.WHITE);
+		this.btnSalir.setBackground(Color.RED);
 		this.contentPane.add(this.btnSalir);
 	}
 
 	public JTextField getTxtCodUsuario() {
 		return this.txtCodUsuario;
+	}
+	
+	public JButton getBtnRegistrarCliente() {
+		return this.btnRegistrarCliente;
 	}
 	
 	public JButton getBtnSalir() {
