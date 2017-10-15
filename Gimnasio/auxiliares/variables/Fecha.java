@@ -19,9 +19,12 @@ public class Fecha {
 	/**
 	 * @author nfernandez
 	 * @param fecha Format of string "yyyy-mm-dd"
-	 * @return Fecha
+	 * @return Fecha If string is null return 01-01-1900
 	 */
 	public static Fecha getFecha(String fecha) {
+		if (fecha == null)
+			fecha = "1900-01-01";
+		
 		String[] ArrFecha = fecha.split("-");
 		return new Fecha(Integer.parseInt(ArrFecha[2]), 
 				Integer.parseInt(ArrFecha[1]), 

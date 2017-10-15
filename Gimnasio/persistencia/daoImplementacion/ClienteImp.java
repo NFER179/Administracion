@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import conexio.ConectorDB;
 import dao.ClienteDAO;
+import dbVars.Record;
 import dto.ClienteDTO;
 import makeQuery.QueryManager;
 import variables.Fecha;
@@ -124,9 +125,10 @@ public class ClienteImp implements ClienteDAO {
 	@Override
 	public boolean ingresoHoy(ClienteDTO _clte) {
 		
-		String[] fields = {"MAX(FECHA)"};
+		String field = "FECHA";
+		String[] fields = {"MAX(" + field + ") AS " + field};
 		QueryManager qm = new QueryManager();
-		qm.selectFieldsFrom(fields, "CLIENTE_PRESENTISMO");
+		qm.selectFieldsFrom(fields, Record.CLIENTE_PRESENTISMO.toString());
 		qm.addClausule("id_cliente", _clte.getIdCliente().getIdCliente());
 		
 		Statement stm = null;
@@ -141,7 +143,7 @@ public class ClienteImp implements ClienteDAO {
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
-				fecha = Fecha.getFecha(rs.getString("fecha"));
+				fecha = Fecha.getFecha(rs.getString(field));
 			}
 		}
 		catch(Exception e) {
