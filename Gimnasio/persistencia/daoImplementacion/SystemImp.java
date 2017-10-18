@@ -3,7 +3,7 @@ package daoImplementacion;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import conexio.ConectorDB;
+import conexion.ConectorDB;
 import dao.SystemDAO;
 import dbVars.Field;
 import dbVars.Record;
