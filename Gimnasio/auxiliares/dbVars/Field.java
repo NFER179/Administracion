@@ -12,7 +12,7 @@ public enum Field {
 	localidad("LOCALIDAD"),
 	plan("PLAN"),
 	descripcion("DESCRIPCION"),
-	dt_to("DT_TO"),
+	effdt("EFFDT"),
 	diasAlMes("DIASALMES"),
 	precio("PRECIO"),
 	fecha_inscripcion("FECHA_INSCRIPCION"),

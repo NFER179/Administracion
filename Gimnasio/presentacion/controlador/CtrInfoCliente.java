@@ -24,6 +24,10 @@ public class CtrInfoCliente implements ActionListener {
 		/* Controla que tenga dias disponibles para usar */
 		if (this.mdlCliente.canPass(this._clte)) {
 			this.mdlCliente.registrarIngreso(this._clte);
+			this.vt.getTxtVencimiento().setText("Vigente");
+		}
+		else {
+			this.vt.getTxtVencimiento().setText("Vencido");
 		}
 		/* 2) Despues de la resta del dia controlar dias restantes y vencimiento del plan 
 		 * para mostrar algun tipo de alerta de ser necesario. */

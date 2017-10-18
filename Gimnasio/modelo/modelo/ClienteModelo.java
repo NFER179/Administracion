@@ -31,12 +31,13 @@ public class ClienteModelo {
 	}
 
 	/* falta logica de que si ingreso hoy no le vuelva a restar dia. */
-	public void registrarIngreso(ClienteDTO _clte) {
-		if(this.clte.ingresoHoy(_clte)) {
+	public void registrarIngreso(ClienteDTO Clte) {
+		if(this.clte.ingresoHoy(Clte)) {
 			
 		}
 		else {
-			
+			SystemModelo sys = new SystemModelo();
+			sys.registerCustomer(Clte);
 		}
 	}
 

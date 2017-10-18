@@ -10,5 +10,11 @@ public interface SystemDAO {
 	 * @param Customer
 	 * @return Plan of Customer
 	 */
-	PlanDTO getPlanForCustomer(ClienteDTO clte);
+	public PlanDTO getPlanForCustomer(ClienteDTO clte);
+
+	/**
+	 * @author nfernandez
+	 * @param customer
+	 */
+	public void registerCustomer(ClienteDTO clte);
 }

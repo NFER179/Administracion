@@ -11,7 +11,6 @@ import dto.ClienteDTO;
 import dto.PlanDTO;
 import makeQuery.QueryManager;
 import variables.Fecha;
-import variables.IdCliente;
 
 public class SystemImp implements SystemDAO {
 
@@ -20,7 +19,8 @@ public class SystemImp implements SystemDAO {
 	public SystemImp() {
 		this.cnt = ConectorDB.getInstancia();
 	}
-	
+
+	/* Obtiene el ultimo plan del cliente. */
 	@Override
 	public PlanDTO getPlanForCustomer(ClienteDTO clte) {
 //		QueryManager subQm = new QueryManager("B");
@@ -35,24 +35,57 @@ public class SystemImp implements SystemDAO {
 				Record.cliente_plan, Fecha.Today());
 		
 		/* impresion de query */
-		qm.imprimirQuery("SystemImp");
+		//qm.imprimirQuery("SystemImp.getPlanForCustomer");
 		
 		Statement stm;
 		ResultSet rs = null;
 		PlanDTO plan = null;
+		String planName = "";
 		
 		try {
-			//stm = this.cnt.getStament();
-			//rs = stm.executeQuery(qm.getQueryTxt());
+			stm = this.cnt.getStament();
+			rs = stm.executeQuery(qm.getQueryTxt());
+			
+			while(rs.next()) {
+				planName = rs.getString(1);
+			}
 		}
 		catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		finally {
-			
+			this.cnt.cerrarConexion();
 		}
 		
-		return new PlanDTO("Ptest","holaaaaa"); 
+		plan = new PlanDTO(planName, "");
+		
+		return plan; 
+	}
+
+	@Override
+	public void registerCustomer(ClienteDTO Clte) {
+		
+		QueryManager qm = new QueryManager("A");
+		qm.insert(new Field[] {Field.id_cliente, Field.fecha}, 
+				new String[] {QueryManager.insertCommon(Clte.getIdCliente().getIdCliente()), 
+						Fecha.Today().ToSqlDate("MYSQL")},
+				Record.cliente_presentismo);
+		
+		/* impresion de query */
+		//qm.imprimirInsert("SystemImp");
+		
+		Statement stm;
+		
+		try {
+			stm = this.cnt.getStament();
+			stm.executeUpdate(qm.getInsertTxt());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}		
 	}
 	
 //	@Override

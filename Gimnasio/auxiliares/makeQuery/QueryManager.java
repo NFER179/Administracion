@@ -11,6 +11,7 @@ public class QueryManager {
 
 	private String _sPrefix;
 	private String[] _asFields;
+	private String[] _asValues;
 	private String _sRecord;
 	private List<String> _lsClausules;
 	private String sqlTxt;
@@ -75,6 +76,19 @@ public class QueryManager {
 		this._sRecord = record.record() + "%";
 	}
 	
+	/* insert metods */
+	public void insert(Field[] fields, String[] values, Record record) {
+		if(fields.length == values.length) {
+			this._asFields = new String[fields.length];
+			for(int i = 0; i < fields.length; i++) {
+				this._asFields[i] = fields[i].field();
+			}
+			this._asValues = values;
+		}
+		this._sRecord = record.record();
+	}
+	
+	/* Clausules */
 	public void addClausuleSame(String field, String value) {
 //		if (this.sqlTxt.indexOf("WHERE") == -1) {
 //			this.sqlTxt = this.sqlTxt + " WHERE " + field.toUpperCase() + " = '" + value + "'";
@@ -101,6 +115,14 @@ public class QueryManager {
 		this._lsClausules.add(field01.field() + " < " + field02.field());	
 	}
 	
+	public void addClausuleLessSame(String field, String value) {
+		this._lsClausules.add(field.toUpperCase() + " <= " + value);	
+	}
+	
+	public void addClausuleLessSame(Field field01, Field field02) {
+		this._lsClausules.add(field01.field() + " <= " + field02.field());	
+	}
+	
 	/**
 	 * @author nfernandez
 	 * @param fieldDate
@@ -119,7 +141,7 @@ public class QueryManager {
 		for(int i = 0 ; i < keys.length; i++) {
 			qm.addClausuleSame(keys[i], this.fieldPrefix() + keys[i].field().toUpperCase());
 		}
-		qm.addClausuleLess(fieldDate.field(), date.ToSqlDate("MYSQL"));
+		qm.addClausuleLessSame(fieldDate.field(), date.ToSqlDate("MYSQL"));
 		
 		this._lsClausules.add(fieldDate.field() + " = (" + qm.getQueryTxt() + ")");
 	}
@@ -144,14 +166,44 @@ public class QueryManager {
 		}
 	}
 	
+	private void armarInsert() {
+		this.sqlTxt = "INSERT INTO " + this._sRecord + " (" + this._asFields[0];
+		
+		for(int i = 1; i < this._asFields.length; i++) {
+			this.sqlTxt = this.sqlTxt + ", " + this._asFields[i];
+		}
+		
+		this.sqlTxt = this.sqlTxt + ") VALUES(" + this._asValues[0];
+		
+		for(int i = 1; i < this._asValues.length; i++) {
+			this.sqlTxt = this.sqlTxt + ", " + this._asValues[i];
+		}
+		
+		this.sqlTxt = this.sqlTxt + ")";
+	}
+	
 	/* Metodos de seguimiento. */
 	public String getQueryTxt() {
 		this.armarQuery();
+		return this.sqlTxt;
+	}
+	
+	public String getInsertTxt() {
+		this.armarInsert();
 		return this.sqlTxt;
 	}
 
 	public void imprimirQuery(String Class) {
 		this.armarQuery();
 		System.out.println("class." + Class + " " + sqlTxt);
+	}
+	
+	public void imprimirInsert(String Class) {
+		this.armarInsert();
+		System.out.println("class." + Class + " " + sqlTxt);
+	}
+	
+	public static String insertCommon(String value){
+		return "'" + value + "'";
 	}
 }
