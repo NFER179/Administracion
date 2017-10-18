@@ -25,7 +25,7 @@ public class VtInfoCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public VtInfoCliente(ClienteDTO clte) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -33,7 +33,7 @@ public class VtInfoCliente extends JFrame {
 		setContentPane(contentPane);
 		this.contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		this.lblNombre = new JLabel("Nombre:");
 		this.lblNombre.setBounds(5, 5, 80, 30);

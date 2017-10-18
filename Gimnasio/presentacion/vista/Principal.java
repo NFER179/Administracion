@@ -25,7 +25,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -34,6 +34,7 @@ public class Principal extends JFrame {
 		//this.setUndecorated(true);
 		this.contentPane.setLayout(null);
 		setContentPane(contentPane);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		this.lblCodUsuario = new JLabel("Cod Usuario:");
 		this.lblCodUsuario.setBounds(5, 5, 80, 30);

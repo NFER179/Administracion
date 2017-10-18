@@ -1,15 +1,53 @@
-drop database gimnasio;
+drop database if exists gimnasio;
 
 create database if not exists gimnasio;
 
 use gimnasio;
 
+/* Records of data base information. */
+create table if not exists recod(nombre varchar(10), descr varchar(30));
+
+create table if not exists field(nombre varchar(20), descr varchar(30));
+/*
+cliente
+	id_cliente (y)
+	nombre
+	apellido 
+	nacionalidad
+	tipo_doc
+	num_documento
+	fecha_nacimiento
+	ciudad
+	localidad
+		
+plan
+	plan	(Y)
+	descripcion
+
+plan_precio
+	plan		(Y)
+	dt_to date	(Y)
+	diasAlMes
+	precio
+
+cliente_plan
+	id_cliente		(Y)
+	plan			(Y)
+	fecha_inscripcion	(Y)
+		
+cliente_presentismo
+	id_cliente varchar(5) 	(Y)
+	fecha date not null 	(Y)
+*/
+
+/* records configuration. */
 create table if not exists config(nombre_gimnasio varchar(50) not null);
 
 insert into config(nombre_gimnasio) values("Lo de Betty");
 
+/* Records of app. */
 create table if not exists cliente(id_cliente varchar(5) not null
-		, nombres varchar(50) not null
+		, nombre varchar(50) not null
 		, apellido varchar(30) not null
 		, nacionalidad varchar(50) not null
 		, tipo_doc varchar(10) not null
@@ -19,7 +57,7 @@ create table if not exists cliente(id_cliente varchar(5) not null
 		, localidad varchar(30) not null
 		, primary key (id_cliente));
 		
-insert into cliente(id_cliente, nombres, apellido, nacionalidad, tipo_doc, num_documento, fecha_nacimiento, ciudad, localidad)
+insert into cliente(id_cliente, nombre, apellido, nacionalidad, tipo_doc, num_documento, fecha_nacimiento, ciudad, localidad)
 values
 ('13254', 'Nicolas Daniel', 'Fernandez', 'Argentino', 'DNI', '20-34179142-2', STR_TO_DATE('02-11-1988','%d-%m-%Y'), 'Moreno', 'Moreno'),
 ('13255', 'Ignacio Damian', 'Fernandez', 'Argentino', 'DNI', '20-42142179-2', STR_TO_DATE('16-06-1993','%d-%m-%Y'), 'Moreno', 'Moreno');

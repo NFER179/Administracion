@@ -30,12 +30,26 @@ public class ClienteModelo {
 		}
 	}
 
+	/* falta logica de que si ingreso hoy no le vuelva a restar dia. */
 	public void registrarIngreso(ClienteDTO _clte) {
 		if(this.clte.ingresoHoy(_clte)) {
 			
 		}
 		else {
 			
+		}
+	}
+
+	public boolean canPass(ClienteDTO Clte) {
+		if (this.clte.ingresoHoy(Clte))
+			return true;
+		else {
+			PlanModelo mdlPlan = new PlanModelo();
+			if (mdlPlan.daysToUseForCustomer(Clte) > 0/*dias mayores a 4 y vencimiento mayor igual a hoy*/) {
+				return true;
+			}
+			else
+				return false;
 		}
 	}
 }

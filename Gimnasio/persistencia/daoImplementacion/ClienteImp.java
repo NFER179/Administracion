@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import conexio.ConectorDB;
 import dao.ClienteDAO;
+import dbVars.Field;
 import dbVars.Record;
 import dto.ClienteDTO;
 import makeQuery.QueryManager;
@@ -25,8 +26,8 @@ public class ClienteImp implements ClienteDAO {
 		Statement stm;
 		
 		QueryManager qm = new QueryManager();
-		qm.selectAllFrom("CLIENTE");
-		qm.addClausule("id_cliente", IdClt.getIdCliente());
+		qm.selectAllFrom(Record.cliente);
+		qm.addClausuleSame(Field.id_cliente.field(), IdClt.getIdCliente());
 		
 		ResultSet rs = null;
 		ClienteDTO cliente = null;
@@ -36,15 +37,15 @@ public class ClienteImp implements ClienteDAO {
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
-				cliente = new ClienteDTO(IdCliente.getStrId(rs.getString("id_cliente"))
-						, rs.getString("nombres")
-						, rs.getString("apellido")
-						, rs.getString("nacionalidad")
-						, rs.getString("tipo_doc")
-						, rs.getString("num_documento")
-						, Fecha.getFecha(rs.getString("fecha_nacimiento"))
-						, rs.getString("ciudad")
-						, rs.getString("localidad"));
+				cliente = new ClienteDTO(IdCliente.getStrId(rs.getString(Field.id_cliente.field()))
+						, rs.getString(Field.nombre.field())
+						, rs.getString(Field.apellido.field())
+						, rs.getString(Field.nacionalidad.field())
+						, rs.getString(Field.tipo_doc.field())
+						, rs.getString(Field.num_documento.field())
+						, Fecha.getFecha(rs.getString(Field.fecha_nacimiento.field()))
+						, rs.getString(Field.ciudad.field())
+						, rs.getString(Field.localidad.field()));
 			}
 		}
 		catch(Exception e) {
@@ -60,16 +61,16 @@ public class ClienteImp implements ClienteDAO {
 	@Override
 	public int getIdLength() {
 		
-		String[] fields = {"MAX(id_cliente)"};
-		QueryManager qm = new QueryManager();
-		qm.selectFieldsFrom(fields, "CLIENTE");
+//		String[] fields = {"MAX(" + Field.id_cliente.field() + ")"};
+		QueryManager qm = new QueryManager("hola");
+		qm.selectMax(Field.id_cliente, Record.cliente);
 		
 		Statement stm;
 		ResultSet rs = null;
 		int lenth = 0;
 		
 		/* Impresion Query. (Test) */
-		//System.out.println("class.ClienteImp" + qm.getQueryTxt());
+		qm.imprimirQuery("ClienteImp");
 		
 		try {
 			stm = this.cnt.getStament();
@@ -92,18 +93,17 @@ public class ClienteImp implements ClienteDAO {
 	@Override
 	public boolean concideIdCliente(IdCliente idCliente) {
 		
-		String[] fields = {"'X'"};
 		QueryManager qm = new QueryManager();
-		qm.selectFieldsFrom(fields, "CLIENTE");
-		qm.addClausule("id_cliente", idCliente.getIdCliente());
+		qm.selectFieldFrom("'X'", Record.cliente);
+		qm.addClausuleSame(Field.id_cliente, idCliente.getIdCliente());
 		
 		Statement stm;
 		ResultSet rs = null;
 		String exists = "";
 		
 		/* Impresion Query. (Test) */
-		//System.out.println("class.ClienteImp" + qm.getQueryTxt());
-		
+		//qm.imprimirQuery("ClienteImp");
+
 		try {
 			stm = this.cnt.getStament();
 			rs = stm.executeQuery(qm.getQueryTxt());
@@ -125,25 +125,26 @@ public class ClienteImp implements ClienteDAO {
 	@Override
 	public boolean ingresoHoy(ClienteDTO _clte) {
 		
-		String field = "FECHA";
-		String[] fields = {"MAX(" + field + ") AS " + field};
+//		String field = Field.fecha.field();
+//		String[] fields = {"MAX(" + field + ") AS " + field};
 		QueryManager qm = new QueryManager();
-		qm.selectFieldsFrom(fields, Record.CLIENTE_PRESENTISMO.toString());
-		qm.addClausule("id_cliente", _clte.getIdCliente().getIdCliente());
+		qm.selectMax(Field.fecha, Record.cliente_presentismo);
+		//qm.selectFieldsFrom(fields, Record.cliente_presentismo.record());
+		qm.addClausuleSame(Field.id_cliente.field(), _clte.getIdCliente().getIdCliente());
 		
 		Statement stm = null;
 		ResultSet rs = null;
 		Fecha fecha = new Fecha(1, 1, 1900);
 		
 		/* Impresion Query. (Test) */
-		System.out.println("class.ClienteImp " + qm.getQueryTxt());
+		qm.imprimirQuery("ClienteImp");
 		
 		try {
 			stm = this.cnt.getStament();
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
-				fecha = Fecha.getFecha(rs.getString(field));
+				fecha = Fecha.getFecha(rs.getString(1));
 			}
 		}
 		catch(Exception e) {
@@ -153,6 +154,6 @@ public class ClienteImp implements ClienteDAO {
 			this.cnt.cerrarConexion();
 		}
 		
-		return ((fecha.isHoy()) ? true : false);
+		return ((fecha.isToday()) ? true : false);
 	}
 }

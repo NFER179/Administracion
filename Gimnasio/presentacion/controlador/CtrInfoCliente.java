@@ -21,7 +21,10 @@ public class CtrInfoCliente implements ActionListener {
 	
 	public void init() {
 		/* 1) Falta funcion que resta un dia del plan en que esta anotado el cliente. */
-		this.mdlCliente.registrarIngreso(this._clte);
+		/* Controla que tenga dias disponibles para usar */
+		if (this.mdlCliente.canPass(this._clte)) {
+			this.mdlCliente.registrarIngreso(this._clte);
+		}
 		/* 2) Despues de la resta del dia controlar dias restantes y vencimiento del plan 
 		 * para mostrar algun tipo de alerta de ser necesario. */
 		this.vt.setVisible(true);

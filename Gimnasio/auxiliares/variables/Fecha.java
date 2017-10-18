@@ -13,7 +13,15 @@ public class Fecha {
 	}
 	
 	public String getStrFecha() {
-		return Integer.toString(this._dia) + "/" + Integer.toString(this._mes) + "/" + Integer.toString(this._ano);
+		String dia = Integer.toString(this._dia);
+		if (dia.length() < 2)
+			dia = "0" + dia;
+		
+		String mes = Integer.toString(this._mes);
+		if (mes.length() < 2)
+			mes = "0" + mes;
+		
+		return Integer.toString(this._ano) + "/" + mes + "/" + dia;
 	}
 
 	/**
@@ -31,8 +39,21 @@ public class Fecha {
 				Integer.parseInt(ArrFecha[0]));
 	}
 
-	public boolean isHoy() {
+	public static Fecha Today(){
+		return new Fecha(16,10,2017); 
+	}
+	
+	public boolean isToday() {
 		/* Falta desarrollar metodo. */
 		return false;
+	}
+
+	public String ToSqlDate(String db) {
+		switch(db.toUpperCase()) {
+			case "MYSQL":
+		return "STR_TO_DATE('" + this.getStrFecha() + "','%Y/%m/%d')";
+		default:
+			return "";
+		}
 	}
 }
