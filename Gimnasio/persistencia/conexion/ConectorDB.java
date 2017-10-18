@@ -1,4 +1,4 @@
-package conexio;
+package conexion;
 
 import java.sql.*;
 
