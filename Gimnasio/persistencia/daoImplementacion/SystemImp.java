@@ -10,6 +10,7 @@ import dbVars.Record;
 import dto.ClienteDTO;
 import dto.PlanDTO;
 import makeQuery.QueryManager;
+import modelo.PlanModelo;
 import variables.Fecha;
 
 public class SystemImp implements SystemDAO {
@@ -39,7 +40,6 @@ public class SystemImp implements SystemDAO {
 		
 		Statement stm;
 		ResultSet rs = null;
-		PlanDTO plan = null;
 		String planName = "";
 		
 		try {
@@ -57,9 +57,9 @@ public class SystemImp implements SystemDAO {
 			this.cnt.cerrarConexion();
 		}
 		
-		plan = new PlanDTO(planName, "");
+		PlanModelo mdlPlan = new PlanModelo();
 		
-		return plan; 
+		return mdlPlan.getPlan(planName);
 	}
 
 	@Override

@@ -25,4 +25,8 @@ public class PlanModelo {
 	public static boolean pendientDaysFor(PlanDTO Plan) {
 		return false;
 	}
+
+	public PlanDTO getPlan(String planName) {
+		this._pln.getPlan(planName);;
+	}
 }
