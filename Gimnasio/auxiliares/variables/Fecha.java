@@ -1,5 +1,9 @@
 package variables;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Fecha {
 
 	private int _dia;
@@ -24,6 +28,33 @@ public class Fecha {
 		return Integer.toString(this._ano) + "/" + mes + "/" + dia;
 	}
 
+	public boolean isToday() {
+		/* Falta desarrollar metodo. */
+		return false;
+	}
+
+	public String ToSqlDate(String db) {
+		switch(db.toUpperCase()) {
+			case "MYSQL":
+		return "STR_TO_DATE('" + this.getStrFecha() + "','%Y/%m/%d')";
+		default:
+			return "";
+		}
+	}
+
+	/* Retorna la cantidad de días desde la fecha hasta hoy. */
+	public int daysToToday() {
+		DateFormat asf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		
+		Fecha today = Fecha.getFecha(asf.format(cal.getTime()));
+		
+		int anosDiferencia = today.getAno() - this._ano;
+		int mesesDiferencia =  
+		
+		return 0;
+	}
+	
 	/**
 	 * @author nfernandez
 	 * @param fecha Format of string "yyyy-mm-dd"
@@ -40,20 +71,21 @@ public class Fecha {
 	}
 
 	public static Fecha Today(){
-		return new Fecha(16,10,2017); 
-	}
-	
-	public boolean isToday() {
-		/* Falta desarrollar metodo. */
-		return false;
+		DateFormat asf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		
+		return Fecha.getFecha(asf.format(cal.getTime())); 
 	}
 
-	public String ToSqlDate(String db) {
-		switch(db.toUpperCase()) {
-			case "MYSQL":
-		return "STR_TO_DATE('" + this.getStrFecha() + "','%Y/%m/%d')";
-		default:
-			return "";
-		}
+	public int getDia() {
+		return _dia;
+	}
+
+	public int getMes() {
+		return _mes;
+	}
+
+	public int getAno() {
+		return _ano;
 	}
 }

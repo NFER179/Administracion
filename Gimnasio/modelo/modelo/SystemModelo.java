@@ -4,6 +4,7 @@ import dao.SystemDAO;
 import daoImplementacion.SystemImp;
 import dto.ClienteDTO;
 import dto.PlanDTO;
+import variables.Fecha;
 
 public class SystemModelo {
 
@@ -13,11 +14,15 @@ public class SystemModelo {
 		this._sys = new SystemImp();
 	}
 
-	public PlanDTO getCustomerPlan(ClienteDTO Clte) {
-		return this._sys.getPlanForCustomer(Clte);
+	public PlanDTO getCustomerPlanIn(ClienteDTO Clte, Fecha inscripcion) {
+		return this._sys.getPlanForCustomerRegistrationIn(Clte, inscripcion);
 	}
 
 	public void registerCustomer(ClienteDTO Clte) {
 		this._sys.registerCustomer(Clte);
+	}
+
+	public Fecha getLastRegistratioDateFor(ClienteDTO clte) {
+		return this._sys.getLastRegistrationDateFor(clte);
 	}
 }

@@ -21,9 +21,9 @@ public class SystemImp implements SystemDAO {
 		this.cnt = ConectorDB.getInstancia();
 	}
 
-	/* Obtiene el ultimo plan del cliente. */
+	/* Obtiene el plan del cliente  */
 	@Override
-	public PlanDTO getPlanForCustomer(ClienteDTO clte) {
+	public PlanDTO getPlanForCustomerRegistrationIn(ClienteDTO clte, Fecha date) {
 //		QueryManager subQm = new QueryManager("B");
 //		subQm.selectFieldFrom("MAX(" + Field.fecha_inscripcion + ")", Record.cliente_plan.record());
 		
@@ -33,7 +33,7 @@ public class SystemImp implements SystemDAO {
 		qm.addClausuleSame(Field.id_cliente.field(), clte.getIdCliente().getIdCliente());
 		qm.addEffDate(Field.fecha_inscripcion, 
 				new Field[]{Field.id_cliente, Field.plan}, 
-				Record.cliente_plan, Fecha.Today());
+				Record.cliente_plan, date);
 		
 		/* impresion de query */
 		//qm.imprimirQuery("SystemImp.getPlanForCustomer");
@@ -85,7 +85,40 @@ public class SystemImp implements SystemDAO {
 		}
 		finally {
 			this.cnt.cerrarConexion();
-		}		
+		}
+	}
+
+	/* get last date of registration fot one customer. */
+	@Override
+	public Fecha getLastRegistrationDateFor(ClienteDTO clte) {
+		
+		QueryManager qm = new QueryManager("A");
+		qm.selectMax(Field.fecha_inscripcion, Record.cliente_plan);
+		qm.addClausuleSame(Field.id_cliente, QueryManager.insertCommon(clte.getIdCliente().getIdCliente()));
+		
+		/* impresion de query */
+		//qm.imprimirQuery("SystemImp.getLastRegistrationDateFor()");
+		
+		Statement stm;
+		ResultSet rs = null;
+		Fecha registration = Fecha.getFecha(null);
+		
+		try {
+			stm = this.cnt.getStament();
+			rs = stm.executeQuery(qm.getQueryTxt());
+			
+			while(rs.next()) {
+				registration = Fecha.getFecha(rs.getString(1));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+		
+		return registration;
 	}
 	
 //	@Override

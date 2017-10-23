@@ -8,6 +8,8 @@ import dao.PlanDAO;
 import dbVars.Field;
 import dbVars.Record;
 import dto.ClienteDTO;
+import dto.PlanDTO;
+import dto.PlanDetalleDTO;
 import makeQuery.QueryManager;
 import variables.Fecha;
 import variables.IdCliente;
@@ -21,30 +23,26 @@ public class PlanImp implements PlanDAO {
 	}
 
 	@Override
-	public void getPlan(String planName) {
+	public PlanDTO getPlan(String planName) {
 		
 		QueryManager qm = new QueryManager();
-		qm.selectAllFrom(Record.cliente);
-		qm.addClausuleSame(Field.id_cliente.field(), IdClt.getIdCliente());
-		
+		qm.selectAllFrom(Record.plan);
+		qm.addClausuleSame(Field.plan, QueryManager.insertCommon(planName));
+
 		Statement stm;
 		ResultSet rs = null;
-		ClienteDTO cliente = null;
+		PlanDTO plan = null;
+		
+		/* Impresion Query. */
+		//qm.imprimirQuery("PlanImp.getPlan()");
 		
 		try {
 			stm = this.cnt.getStament();
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
-				cliente = new ClienteDTO(IdCliente.getStrId(rs.getString(Field.id_cliente.field()))
-						, rs.getString(Field.nombre.field())
-						, rs.getString(Field.apellido.field())
-						, rs.getString(Field.nacionalidad.field())
-						, rs.getString(Field.tipo_doc.field())
-						, rs.getString(Field.num_documento.field())
-						, Fecha.getFecha(rs.getString(Field.fecha_nacimiento.field()))
-						, rs.getString(Field.ciudad.field())
-						, rs.getString(Field.localidad.field()));
+				plan = new PlanDTO(rs.getString(Field.plan.field())
+						, rs.getString(Field.descripcion.field()));
 			}
 		}
 		catch(Exception e) {
@@ -54,6 +52,42 @@ public class PlanImp implements PlanDAO {
 			this.cnt.cerrarConexion();
 		}
 			
-		return cliente;
+		return plan;
+	}
+
+	/* Obtiene los detalles del plan que se le pasa como parametro. */
+	@Override
+	public PlanDetalleDTO getPlanDetail(PlanDTO customerPlan) {
+		
+		QueryManager qm = new QueryManager();
+		qm.selectAllFrom(Record.plan_detalle);
+		qm.addClausuleSame(Field.plan, customerPlan.get_sPlan());
+		
+		Statement stm;
+		ResultSet rs;
+		PlanDetalleDTO planDetalle = new PlanDetalleDTO("SIN PLAN"
+				, Fecha.getFecha(null)
+				, 0
+				, 0);
+		
+		try {
+			stm = this.cnt.getStament();
+			rs = stm.executeQuery(qm.getQueryTxt());
+			
+			while(rs.next()) {
+				planDetalle = new PlanDetalleDTO(rs.getString(Field.plan.field())
+						, Fecha.getFecha(Field.effdt.field())
+						, rs.getInt(Field.diasAlMes.field())
+						, rs.getInt(Field.precio.field()));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+		
+		return planDetalle;
 	}	
 }

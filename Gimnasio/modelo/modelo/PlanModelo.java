@@ -4,6 +4,8 @@ import dao.PlanDAO;
 import daoImplementacion.PlanImp;
 import dto.ClienteDTO;
 import dto.PlanDTO;
+import dto.PlanDetalleDTO;
+import variables.Fecha;
 
 public class PlanModelo {
 
@@ -16,9 +18,15 @@ public class PlanModelo {
 	public int daysToUseForCustomer(ClienteDTO Clte) {
 		SystemModelo sys = new SystemModelo();
 		
-		PlanDTO customerPlan = sys.getCustomerPlan(Clte);
+		/* Ultima fecha de inscripcion para el cliente X */
+		Fecha inscripcion = sys.getLastRegistratioDateFor(Clte);		
+		PlanDTO customerPlan = sys.getCustomerPlanIn(Clte, inscripcion);
 		
-//		int daysOfPlan = 
+		PlanDetalleDTO dtoPlnDtl = this._pln.getPlanDetail(customerPlan);
+		
+		if (inscripcion.daysToToday() > dtoPlnDtl.get_iDiasAlMes()) {
+			
+		} 
 		return 0;
 	}
 
@@ -27,6 +35,6 @@ public class PlanModelo {
 	}
 
 	public PlanDTO getPlan(String planName) {
-		this._pln.getPlan(planName);;
+		return this._pln.getPlan(planName);
 	}
 }

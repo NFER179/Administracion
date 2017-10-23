@@ -6,7 +6,7 @@ public enum Record {
 	cliente_presentismo("CLIENTE_PRESENTISMO"),
 	config("CONFIG"),
 	plan("PLAN"),
-	plan_precio("PLAN_PRECIO");
+	plan_detalle("PLAN_DETALLE");
 
 	private String record;
 	
