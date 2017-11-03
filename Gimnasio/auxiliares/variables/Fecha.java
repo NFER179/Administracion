@@ -30,7 +30,17 @@ public class Fecha {
 
 	public boolean isToday() {
 		/* Falta desarrollar metodo. */
-		return false;
+		DateFormat asf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		
+		Fecha today = Fecha.getFecha(asf.format(cal.getTime()));
+		
+		if (today.getAno() == this._ano && today.getMes() == this._mes && today.getDia() == this._dia) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public String ToSqlDate(String db) {
@@ -46,13 +56,57 @@ public class Fecha {
 	public int daysToToday() {
 		DateFormat asf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
-		
+	
 		Fecha today = Fecha.getFecha(asf.format(cal.getTime()));
 		
-		int anosDiferencia = today.getAno() - this._ano;
-		int mesesDiferencia =  
+		int dias = 0; 
+		int[] diasEnMeses = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
-		return 0;
+		for (int anio = this._ano + 1 ; anio < today.getAno(); anio++) {
+			
+			dias += 365;
+			if ((anio % 4 == 0) && ((anio % 100 != 0) || (anio % 400 == 0))) {
+				dias += 1;
+			}
+		}  
+		
+		if (today.getAno() - this._ano >= 1) {
+			for (int mesInicio = this._mes +1; mesInicio <= 12; mesInicio++) {
+				dias += diasEnMeses[mesInicio - 1];
+			}
+		
+			for (int mesFin = 1; mesFin < today.getMes() - 1; mesFin++) {
+				dias += diasEnMeses[mesFin -1];
+			}
+			
+			if (((today.getAno() % 4 == 0) && ((today.getAno() % 100 != 0) || (today.getAno() % 400 == 0))) && this.getMes() > 2) {
+				dias += 1;
+			}
+			
+		}
+		else {
+			for (int meses = this._mes ; meses < today._mes; meses ++) {
+				dias += diasEnMeses[meses];
+			}
+			
+			
+		}
+		
+		if (((today.getAno() % 4 == 0) && ((today.getAno() % 100 != 0) || (today.getAno() % 400 == 0))) && today.getMes() > 2) {
+			dias += 1;
+		}
+		
+		if(today._mes == this._mes) {
+			dias += today.getDia() - this._dia + 1;
+		}
+		else {
+			dias += diasEnMeses[this._mes - 1] - this._dia;
+			
+			dias += today.getDia();
+		}
+			
+		
+		return dias;
 	}
 	
 	/**

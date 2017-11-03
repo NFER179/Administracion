@@ -71,7 +71,12 @@ public class QueryManager {
 //		this.sqlTxt = "SELECT * FROM " + Record;
 	}
 	
-	public void selectMax(Field field, Record record) {
+	public void selectCountFrom(Field field, Record record) {
+		this._asFields = new String[] {"COUNT(%" + field.field() + ")"};
+		this._sRecord = record.record() + "%";
+	}
+	
+	public void selectMaxFrom(Field field, Record record) {
 		this._asFields = new String[] {"MAX(%" + field.field() + ")"};
 		this._sRecord = record.record() + "%";
 	}
@@ -136,7 +141,7 @@ public class QueryManager {
 			this._sPrefix = "A";
 		
 		QueryManager qm = new QueryManager(this._sPrefix + "2");
-		qm.selectMax(fieldDate, record);
+		qm.selectMaxFrom(fieldDate, record);
 		
 		for(int i = 0 ; i < keys.length; i++) {
 			qm.addClausuleSame(keys[i], this.fieldPrefix() + keys[i].field().toUpperCase());

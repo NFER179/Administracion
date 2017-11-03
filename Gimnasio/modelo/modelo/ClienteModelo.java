@@ -46,7 +46,8 @@ public class ClienteModelo {
 			return true;
 		else {
 			PlanModelo mdlPlan = new PlanModelo();
-			if (mdlPlan.daysToUseForCustomer(Clte) > 0/*dias mayores a 4 y vencimiento mayor igual a hoy*/) {
+			/*dias mayores a 4 y vencimiento mayor igual a hoy*/
+			if (mdlPlan.daysToUseForCustomer(Clte) > 0) {
 				return true;
 			}
 			else

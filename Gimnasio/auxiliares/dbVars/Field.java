@@ -16,7 +16,8 @@ public enum Field {
 	diasAlMes("DIASALMES"),
 	precio("PRECIO"),
 	fecha_inscripcion("FECHA_INSCRIPCION"),
-	fecha("FECHA");
+	fecha("FECHA"), 
+	ALL("*");
 	
 	private String Field;
 	

@@ -61,7 +61,7 @@ public class PlanImp implements PlanDAO {
 		
 		QueryManager qm = new QueryManager();
 		qm.selectAllFrom(Record.plan_detalle);
-		qm.addClausuleSame(Field.plan, customerPlan.get_sPlan());
+		qm.addClausuleSame(Field.plan, qm.insertCommon(customerPlan.get_sPlan()));
 		
 		Statement stm;
 		ResultSet rs;
@@ -70,13 +70,15 @@ public class PlanImp implements PlanDAO {
 				, 0
 				, 0);
 		
+		//qm.imprimirQuery("PlanImp.class.getPlanDetail");
+		
 		try {
 			stm = this.cnt.getStament();
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
 				planDetalle = new PlanDetalleDTO(rs.getString(Field.plan.field())
-						, Fecha.getFecha(Field.effdt.field())
+						, Fecha.getFecha(rs.getString(Field.effdt.field()))
 						, rs.getInt(Field.diasAlMes.field())
 						, rs.getInt(Field.precio.field()));
 			}

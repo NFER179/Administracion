@@ -25,4 +25,11 @@ public interface SystemDAO {
 	 * @return
 	 */
 	public Fecha getLastRegistrationDateFor(ClienteDTO clte);
+
+	/**
+	 * @author nfernandez
+	 * @param fecha de incripcion
+	 * @return Count of days what de customer in
+	 */
+	public int getNumberOfInFrom(Fecha inscripcion, ClienteDTO cliente);
 }

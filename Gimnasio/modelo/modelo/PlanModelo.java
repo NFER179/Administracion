@@ -22,11 +22,17 @@ public class PlanModelo {
 		Fecha inscripcion = sys.getLastRegistratioDateFor(Clte);		
 		PlanDTO customerPlan = sys.getCustomerPlanIn(Clte, inscripcion);
 		
+		
 		PlanDetalleDTO dtoPlnDtl = this._pln.getPlanDetail(customerPlan);
 		
-		if (inscripcion.daysToToday() > dtoPlnDtl.get_iDiasAlMes()) {
-			
-		} 
+		int lostDays = inscripcion.daysToToday();
+				
+		if(lostDays <= 30) {
+			int registrationDays = sys.getNumberOfRegistrationFrom(inscripcion, Clte);
+
+			return dtoPlnDtl.get_iDiasAlMes() - registrationDays;
+		}
+
 		return 0;
 	}
 

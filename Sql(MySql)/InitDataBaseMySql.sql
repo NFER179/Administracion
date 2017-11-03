@@ -37,7 +37,7 @@ cliente_plan
 		
 cliente_presentismo
 	id_cliente varchar(5) 	(Y)
-	fecha date not null 	(Y)
+	effdt date not null 	(Y)
 */
 
 /* records configuration. */
@@ -86,5 +86,10 @@ insert into cliente_plan(id_cliente, plan, fecha_inscripcion) values
 ('13255', 'FULL', STR_TO_DATE('01-01-1900','%d-%m-%Y'));
 
 create table if not exists cliente_presentismo(id_cliente varchar(5) not null
-		, fecha date not null
-		, primary key(id_cliente, fecha));
+		, effdt date not null
+		, primary key(id_cliente, effdt));
+		
+insert into cliente_presentismo (id_cliente, effdt) 
+values
+('13254','2017-11-01'),
+('13254','2017-11-02');

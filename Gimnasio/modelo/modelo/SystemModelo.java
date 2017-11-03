@@ -25,4 +25,8 @@ public class SystemModelo {
 	public Fecha getLastRegistratioDateFor(ClienteDTO clte) {
 		return this._sys.getLastRegistrationDateFor(clte);
 	}
+
+	public int getNumberOfRegistrationFrom(Fecha Inscripcion, ClienteDTO cliente) {
+		return this._sys.getNumberOfInFrom(Inscripcion, cliente);
+	}
 }

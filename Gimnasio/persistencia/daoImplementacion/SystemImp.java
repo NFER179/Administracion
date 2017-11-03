@@ -66,7 +66,7 @@ public class SystemImp implements SystemDAO {
 	public void registerCustomer(ClienteDTO Clte) {
 		
 		QueryManager qm = new QueryManager("A");
-		qm.insert(new Field[] {Field.id_cliente, Field.fecha}, 
+		qm.insert(new Field[] {Field.id_cliente, Field.effdt}, 
 				new String[] {QueryManager.insertCommon(Clte.getIdCliente().getIdCliente()), 
 						Fecha.Today().ToSqlDate("MYSQL")},
 				Record.cliente_presentismo);
@@ -93,7 +93,7 @@ public class SystemImp implements SystemDAO {
 	public Fecha getLastRegistrationDateFor(ClienteDTO clte) {
 		
 		QueryManager qm = new QueryManager("A");
-		qm.selectMax(Field.fecha_inscripcion, Record.cliente_plan);
+		qm.selectMaxFrom(Field.fecha_inscripcion, Record.cliente_plan);
 		qm.addClausuleSame(Field.id_cliente, QueryManager.insertCommon(clte.getIdCliente().getIdCliente()));
 		
 		/* impresion de query */
@@ -119,6 +119,37 @@ public class SystemImp implements SystemDAO {
 		}
 		
 		return registration;
+	}
+
+	@Override
+	public int getNumberOfInFrom(Fecha inscripcion, ClienteDTO cliente) {
+		
+		QueryManager qm = new QueryManager();
+		qm.selectCountFrom(Field.ALL, Record.cliente_presentismo);
+		qm.addClausuleSame(Field.id_cliente, cliente.getIdCliente().getIdCliente());
+		qm.addClausuleLessSame(inscripcion.ToSqlDate("mysql"), Field.effdt.field());	
+		
+		/* Imprime la query. */
+		//qm.imprimirQuery("SystemImp.getNumberofInFrom");
+		
+		Statement stm = this.cnt.getStament();
+		ResultSet rs = null;
+		int into = 0;
+		
+		try {
+			rs = stm.executeQuery(qm.getQueryTxt());
+			while(rs.next()) {
+				into = rs.getInt(1);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+		
+		return into;
 	}
 	
 //	@Override

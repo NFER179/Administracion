@@ -61,16 +61,15 @@ public class ClienteImp implements ClienteDAO {
 	@Override
 	public int getIdLength() {
 		
-//		String[] fields = {"MAX(" + Field.id_cliente.field() + ")"};
 		QueryManager qm = new QueryManager("hola");
-		qm.selectMax(Field.id_cliente, Record.cliente);
+		qm.selectMaxFrom(Field.id_cliente, Record.cliente);
 		
 		Statement stm;
 		ResultSet rs = null;
 		int lenth = 0;
 		
 		/* Impresion Query. (Test) */
-		qm.imprimirQuery("ClienteImp");
+		//qm.imprimirQuery("ClienteImp.getIdLenght");
 		
 		try {
 			stm = this.cnt.getStament();
@@ -95,7 +94,7 @@ public class ClienteImp implements ClienteDAO {
 		
 		QueryManager qm = new QueryManager();
 		qm.selectFieldFrom("'X'", Record.cliente);
-		qm.addClausuleSame(Field.id_cliente, idCliente.getIdCliente());
+		qm.addClausuleSame(Field.id_cliente, qm.insertCommon(idCliente.getIdCliente()));
 		
 		Statement stm;
 		ResultSet rs = null;
@@ -128,7 +127,7 @@ public class ClienteImp implements ClienteDAO {
 //		String field = Field.fecha.field();
 //		String[] fields = {"MAX(" + field + ") AS " + field};
 		QueryManager qm = new QueryManager();
-		qm.selectMax(Field.fecha, Record.cliente_presentismo);
+		qm.selectMaxFrom(Field.effdt, Record.cliente_presentismo);
 		//qm.selectFieldsFrom(fields, Record.cliente_presentismo.record());
 		qm.addClausuleSame(Field.id_cliente.field(), _clte.getIdCliente().getIdCliente());
 		
@@ -137,7 +136,7 @@ public class ClienteImp implements ClienteDAO {
 		Fecha fecha = new Fecha(1, 1, 1900);
 		
 		/* Impresion Query. (Test) */
-		qm.imprimirQuery("ClienteImp");
+		//qm.imprimirQuery("ClienteImp.ingresoHoy");
 		
 		try {
 			stm = this.cnt.getStament();
