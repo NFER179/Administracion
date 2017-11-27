@@ -10,14 +10,37 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import dao.SystemDAO;
 import dto.ClienteDTO;
+import modelo.SystemModelo;
 
 public class VtInfoCliente extends JFrame {
 
 	private JPanel contentPane;
 
+	/* Styles */
+	private Font txtF = new Font(null, 0, 20);
+	
+	/* Modelos. */
+	private SystemModelo mdlSys;
+	
+	/* Object Position. */
+	private int lblDescription = 5;
+	private int lblWidth = 180;
+	private int txtFieldInformation = 200; 
+	
+	/* Object View */
+		/* Customer´s Information. */
 	private JLabel lblNombre;
 	private JTextField txtNombre;
+	private JLabel lblApellido;
+	private JTextField txtApellido;
+	
+		/* Customer´s plan information. */
+	private JLabel lblDiasRestantes;
+	private JTextField txtDiasRestantes;
+	private JLabel lblFechaVencimiento;
+	private JTextField txtFechaVencimiento;
 	
 	private JTextField txtVencimento;
 	
@@ -26,7 +49,7 @@ public class VtInfoCliente extends JFrame {
 	 */
 	public VtInfoCliente(ClienteDTO clte) {
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -35,22 +58,62 @@ public class VtInfoCliente extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
+		/* Name */
 		this.lblNombre = new JLabel("Nombre:");
-		this.lblNombre.setBounds(5, 5, 80, 30);
+		this.lblNombre.setBounds(this.lblDescription, 5, this.lblWidth, 30);
+		this.lblNombre.setFont(this.txtF);
 		this.contentPane.add(this.lblNombre);
 		
 		this.txtNombre = new JTextField(clte.getNombre());
 		this.txtNombre.setColumns(10);
-		this.txtNombre.setBounds(5, 40, 200, 30);
+		this.txtNombre.setBounds(this.txtFieldInformation, 5, 200, 30);
 		this.txtNombre.setEnabled(false);
 		//this.txtNombre.setEditable(false);
+		this.txtNombre.setFont(txtF);
 		this.contentPane.add(this.txtNombre);
+		
+		this.lblApellido = new JLabel("Apellido:");
+		this.lblApellido.setBounds(this.lblDescription, 45, this.lblWidth, 30);
+		this.lblApellido.setFont(this.txtF);
+		this.contentPane.add(this.lblApellido);
+		
+		this.txtApellido = new JTextField(clte.getApellido());
+		this.txtApellido.setColumns(10);
+		this.txtApellido.setBounds(this.txtFieldInformation, 45, 200, 30);
+		this.txtApellido.setEnabled(false);
+		this.txtApellido.setFont(this.txtF);
+		this.contentPane.add(this.txtApellido);
+
+		/* Customer Information. */
+		this.lblDiasRestantes = new JLabel("Dias Restantes:");
+		this.lblDiasRestantes.setBounds(this.lblDescription, 90, this.lblWidth, 30);
+		this.lblDiasRestantes.setFont(this.txtF);
+		this.contentPane.add(this.lblDiasRestantes);
+		
+		this.txtDiasRestantes = new JTextField(this.mdlSys.getRestOfDay(clte));
+		this.txtDiasRestantes.setColumns(10);
+		this.txtDiasRestantes.setBounds(this.txtFieldInformation, 90, 200, 30);
+		this.txtDiasRestantes.setEnabled(false);
+		this.txtDiasRestantes.setFont(this.txtF);
+		this.contentPane.add(this.txtDiasRestantes);
+		
+		this.lblFechaVencimiento = new JLabel("Fecha Vencimiento:");
+		this.lblFechaVencimiento.setBounds(this.lblDescription, 135, this.lblWidth, 30);
+		this.lblFechaVencimiento.setFont(this.txtF);
+		this.contentPane.add(this.lblFechaVencimiento);
+		
+		this.txtFechaVencimiento = new JTextField(this.mdlSys.getExpirationDatePlan(clte));
+		this.txtFechaVencimiento.setColumns(10);
+		this.txtFechaVencimiento.setBounds(this.txtFieldInformation, 135, 200, 30);
+		this.txtFechaVencimiento.setEnabled(false);
+		this.txtFechaVencimiento.setFont(this.txtF);
+		this.contentPane.add(this.txtFechaVencimiento);
 		
 		this.txtVencimento = new JTextField();
 		this.txtVencimento.setColumns(10);
-		this.txtVencimento.setBounds(5, 90, 200, 30);
-		Font txtF = new Font(null, 0, 20);
+		this.txtVencimento.setBounds(this.txtFieldInformation, 180, 200, 30);
 		this.txtVencimento.setFont(txtF);
+		this.txtVencimento.setEnabled(false);
 		this.contentPane.add(this.txtVencimento);
 	}
 	

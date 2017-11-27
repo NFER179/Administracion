@@ -10,9 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import visual.NBtnCommon;
+
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	
+	private int iWidth = 800;
+	private int iHeight = 500;
 	
 	private JLabel lblCodUsuario;
 	private JTextField txtCodUsuario;
@@ -26,15 +31,16 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setBounds(100, 100, this.iWidth, this.iHeight);
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//contentPane.setLayout(new BorderLayout(0, 0));
 		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//this.setUndecorated(true);
 		this.contentPane.setLayout(null);
-		setContentPane(contentPane);
+		this.setContentPane(contentPane);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 		
 		this.lblCodUsuario = new JLabel("Cod Usuario:");
 		this.lblCodUsuario.setBounds(5, 5, 80, 30);
@@ -47,12 +53,12 @@ public class Principal extends JFrame {
 		this.txtCodUsuario.setBounds(this.lblCodUsuario.getX() + this.lblCodUsuario.getWidth() + 5, 5, 120, 30);
 		this.contentPane.add(this.txtCodUsuario);
 		
-		this.btnRegistrarCliente = new JButton("Registrar Cliente");
+		this.btnRegistrarCliente = new NBtnCommon("Registrar Cliente");
 		this.btnRegistrarCliente.setBounds(5, 50, 200, 30);
 		this.contentPane.add(this.btnRegistrarCliente);
 		
 		this.btnSalir = new JButton("Salir");
-		this.btnSalir.setBounds(5, 100, 100, 30);
+		this.btnSalir.setBounds(this.iWidth - 125, this.iHeight - 80, 100, 30);
 		Font f = new Font(null, Font.BOLD, 20);
 		this.btnSalir.setFont(f);
 		this.btnSalir.setForeground(Color.WHITE);

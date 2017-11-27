@@ -26,7 +26,7 @@ public class PlanImp implements PlanDAO {
 	public PlanDTO getPlan(String planName) {
 		
 		QueryManager qm = new QueryManager();
-		qm.selectAllFrom(Record.plan);
+		qm.selectAllFrom(Record.plan_hdr);
 		qm.addClausuleSame(Field.plan, QueryManager.insertCommon(planName));
 
 		Statement stm;
@@ -60,7 +60,7 @@ public class PlanImp implements PlanDAO {
 	public PlanDetalleDTO getPlanDetail(PlanDTO customerPlan) {
 		
 		QueryManager qm = new QueryManager();
-		qm.selectAllFrom(Record.plan_detalle);
+		qm.selectAllFrom(Record.plan_line);
 		qm.addClausuleSame(Field.plan, qm.insertCommon(customerPlan.get_sPlan()));
 		
 		Statement stm;

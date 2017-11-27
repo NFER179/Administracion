@@ -5,8 +5,8 @@ public enum Record {
 	cliente_plan("CLIENTE_PLAN"),
 	cliente_presentismo("CLIENTE_PRESENTISMO"),
 	config("CONFIG"),
-	plan("PLAN"),
-	plan_detalle("PLAN_DETALLE");
+	plan_hdr("PLAN_HDR"),
+	plan_line("PLAN_LINE");
 
 	private String record;
 	

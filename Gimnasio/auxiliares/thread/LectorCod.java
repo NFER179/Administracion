@@ -22,9 +22,8 @@ public class LectorCod extends Thread {
 	public void run() {
 		try {
 			while(this.bLeer){
-				if(this.lenthIdCliente <= this.ctr.getUserCod().length()) {//if(this.ctr.getUserCod().length() == 5) {
-					if(this.clteMld.existeId(IdCliente.getStrId(this.ctr.getUserCod()))) {//if (this.ctr.getUserCod().equals("1327")) {
-						//this.ctr.mostrarMensaje("codigo acceptado");
+				if(this.lenthIdCliente <= this.ctr.getUserCod().length()) {
+					if(this.clteMld.existeId(IdCliente.getStrId(this.ctr.getUserCod()))) {
 						this.ctr.codigoCorrecto(true);
 						this.ctr.limpiarCodUser();
 					}

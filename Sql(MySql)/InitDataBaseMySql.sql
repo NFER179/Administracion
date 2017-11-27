@@ -62,19 +62,19 @@ values
 ('13254', 'Nicolas Daniel', 'Fernandez', 'Argentino', 'DNI', '20-34179142-2', STR_TO_DATE('02-11-1988','%d-%m-%Y'), 'Moreno', 'Moreno'),
 ('13255', 'Ignacio Damian', 'Fernandez', 'Argentino', 'DNI', '20-42142179-2', STR_TO_DATE('16-06-1993','%d-%m-%Y'), 'Moreno', 'Moreno');
 
-create table if not exists plan(plan varchar(12) not null
+create table if not exists plan_hdr(plan varchar(12) not null
 		, descripcion varchar(30)
 		, primary key (plan));
 
-create table if not exists plan_detalle(plan varchar(12) not null
+create table if not exists plan_line(plan varchar(12) not null
 		,effdt date
 		,diasAlMes int
 		,precio int
 		,primary key (plan, effdt));
 		
-insert into plan(plan, descripcion) values('FULL', 'Incluye todas las rutinas');
+insert into plan_hdr(plan, descripcion) values('FULL', 'Incluye todas las rutinas');
 
-insert into plan_detalle(plan, effdt, diasAlMes, precio) values('FULL', STR_TO_DATE('12-05-2017', '%d-%m-%Y'), 12, 550);
+insert into plan_line(plan, effdt, diasAlMes, precio) values('FULL', STR_TO_DATE('12-05-2017', '%d-%m-%Y'), 12, 550);
 
 create table if not exists cliente_plan(id_cliente varchar(5) not null
 		, plan varchar(12) not null

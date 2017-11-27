@@ -32,4 +32,5 @@ public interface SystemDAO {
 	 * @return Count of days what de customer in
 	 */
 	public int getNumberOfInFrom(Fecha inscripcion, ClienteDTO cliente);
+
 }

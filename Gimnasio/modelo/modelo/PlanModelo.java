@@ -15,13 +15,17 @@ public class PlanModelo {
 		this._pln = new PlanImp();
 	}
 	
+	/**
+	 * @nfernandez
+	 * @param Clte
+	 * @return Dias que le fanta usar a un determinado usuario.
+	 */
 	public int daysToUseForCustomer(ClienteDTO Clte) {
 		SystemModelo sys = new SystemModelo();
 		
 		/* Ultima fecha de inscripcion para el cliente X */
 		Fecha inscripcion = sys.getLastRegistratioDateFor(Clte);		
 		PlanDTO customerPlan = sys.getCustomerPlanIn(Clte, inscripcion);
-		
 		
 		PlanDetalleDTO dtoPlnDtl = this._pln.getPlanDetail(customerPlan);
 		

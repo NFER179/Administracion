@@ -22,6 +22,7 @@ public class SystemModelo {
 		this._sys.registerCustomer(Clte);
 	}
 
+	/* Obtiene la fecha de inscripcion para una determinado clientes. */
 	public Fecha getLastRegistratioDateFor(ClienteDTO clte) {
 		return this._sys.getLastRegistrationDateFor(clte);
 	}

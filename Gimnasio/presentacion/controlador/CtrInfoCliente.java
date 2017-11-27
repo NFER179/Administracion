@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,9 +26,11 @@ public class CtrInfoCliente implements ActionListener {
 		if (this.mdlCliente.canPass(this._clte)) {
 			this.mdlCliente.registrarIngreso(this._clte);
 			this.vt.getTxtVencimiento().setText("Vigente");
+			this.vt.getTxtVencimiento().setBackground(Color.GREEN);
 		}
 		else {
 			this.vt.getTxtVencimiento().setText("Vencido");
+			this.vt.getTxtVencimiento().setBackground(Color.RED);
 		}
 		/* 2) Despues de la resta del dia controlar dias restantes y vencimiento del plan 
 		 * para mostrar algun tipo de alerta de ser necesario. */

@@ -13,34 +13,34 @@ import vista.Principal;
 
 public class CtrPrincipal implements ActionListener {
 
-	private Principal vt;
+	private Principal vtPrincipal;
 	private LectorCod threadLector;
 	
 	private CtrInfoCliente ctrInfCliente;
 	
 	public CtrPrincipal() {
-		this.vt = new Principal();
+		this.vtPrincipal = new Principal();
 		this.addListener();
 		
 		this.threadLector = new LectorCod(this);
 	}
 	
 	private void addListener() {
-		this.vt.getBtnRegistrarCliente().addActionListener(this);
-		this.vt.getBtnSalir().addActionListener(this);
+		this.vtPrincipal.getBtnRegistrarCliente().addActionListener(this);
+		this.vtPrincipal.getBtnSalir().addActionListener(this);
 	}
 	
 	public void init() {
-		this.vt.setVisible(true);
+		this.vtPrincipal.setVisible(true);
 		this.threadLector.run();
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == this.vt.getBtnRegistrarCliente()) {
+		if (arg0.getSource() == this.vtPrincipal.getBtnRegistrarCliente()) {
 			
 		}
-		else if(arg0.getSource() == this.vt.getBtnSalir()) {
+		else if(arg0.getSource() == this.vtPrincipal.getBtnSalir()) {
 			this.salir();
 		}
 	}
@@ -50,14 +50,14 @@ public class CtrPrincipal implements ActionListener {
 	 */
 	private void salir() {
 		this.threadLector.parar();
-		this.vt.dispose();
+		this.vtPrincipal.dispose();
 	}
 	
 	/**
 	 *Metodos externos 
 	 */
 	public String getUserCod() {
-		return this.vt.getTxtCodUsuario().getText();
+		return this.vtPrincipal.getTxtCodUsuario().getText();
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class CtrPrincipal implements ActionListener {
 	}
 
 	public void limpiarCodUser() {
-		this.vt.getTxtCodUsuario().setText("");
+		this.vtPrincipal.getTxtCodUsuario().setText("");
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class CtrPrincipal implements ActionListener {
 	 * @return New Frame with customer information
 	 */
 	public void codigoCorrecto(boolean b) {
-		ClienteDTO clte = new ClienteModelo().getCliente(IdCliente.getStrId(this.vt.getTxtCodUsuario().getText()));
+		ClienteDTO clte = new ClienteModelo().getCliente(IdCliente.getStrId(this.vtPrincipal.getTxtCodUsuario().getText()));
 		this.ctrInfCliente = new CtrInfoCliente(clte);
 		this.ctrInfCliente.init();
 		int i = 1;
