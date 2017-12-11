@@ -28,7 +28,7 @@ public class ConectorDB {
 		return instancia;
 	}
 	
-	public Statement getStament() {
+	public Statement getStatement() {
 		if (this.conexion == null || this.statement == null) {
 			try {
 				this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/gimnasio", "root", "root");

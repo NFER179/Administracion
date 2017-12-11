@@ -24,5 +24,5 @@ public interface ClienteDAO {
 	 * @param _clte
 	 * @return true is customer take other class before.
 	 */
-	public boolean ingresoHoy(ClienteDTO _clte);
+//	public boolean ingresoHoy(ClienteDTO _clte);
 }

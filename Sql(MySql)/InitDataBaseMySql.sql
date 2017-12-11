@@ -68,13 +68,14 @@ create table if not exists plan_hdr(plan varchar(12) not null
 
 create table if not exists plan_line(plan varchar(12) not null
 		,effdt date
-		,diasAlMes int
+		,tipoPlan varchar(20)
+		,diasDelPlan int
 		,precio int
 		,primary key (plan, effdt));
 		
 insert into plan_hdr(plan, descripcion) values('FULL', 'Incluye todas las rutinas');
 
-insert into plan_line(plan, effdt, diasAlMes, precio) values('FULL', STR_TO_DATE('12-05-2017', '%d-%m-%Y'), 12, 550);
+insert into plan_line(plan, effdt, tipoPlan, diasDelPlan, precio) values('FULL', STR_TO_DATE('12-05-2017', '%d-%m-%Y'), 'MENSUAL', 12, 550);
 
 create table if not exists cliente_plan(id_cliente varchar(5) not null
 		, plan varchar(12) not null

@@ -128,6 +128,10 @@ public class QueryManager {
 		this._lsClausules.add(field01.field() + " <= " + field02.field());	
 	}
 	
+	private void addClausuleLessSame(Field field, String value) {
+		this._lsClausules.add(field + " <= " + value);
+	}
+	
 	/**
 	 * @author nfernandez
 	 * @param fieldDate
@@ -136,19 +140,44 @@ public class QueryManager {
 	 * @param date
 	 * @description select effdt
 	 */
-	public void addEffDate(Field fieldDate, Field[] keys, Record record, Fecha date) {
+	public void addEffDate(Field[] keys, Record record, Fecha date) {
 		if (this._sPrefix.equals(""))
 			this._sPrefix = "A";
 		
 		QueryManager qm = new QueryManager(this._sPrefix + "2");
-		qm.selectMaxFrom(fieldDate, record);
+		qm.selectMaxFrom(Field.effdt, record);
 		
 		for(int i = 0 ; i < keys.length; i++) {
 			qm.addClausuleSame(keys[i], this.fieldPrefix() + keys[i].field().toUpperCase());
 		}
-		qm.addClausuleLessSame(fieldDate.field(), date.ToSqlDate("MYSQL"));
+		qm.addClausuleLessSame(Field.effdt.field(), this.toDate(date));
 		
-		this._lsClausules.add(fieldDate.field() + " = (" + qm.getQueryTxt() + ")");
+		this._lsClausules.add(Field.effdt.field() + " = (" + qm.getQueryTxt() + ")");
+	}
+	
+	/**
+	 * @author nfernandez
+	 * @param fieldDate
+	 * @param keys
+	 * @param record
+	 * @param date
+	 * <br>Descripcion:</br> 
+	 * Toma el camo effdt por defecto y busca la maxima fecha effectiva
+	 * para el nuevo record que se ingresa utilizando las claves que van por parametro
+	 */
+	public void addEffdt(Field[] keys, Record record) {
+		if (this._sPrefix.equals(""))
+			this._sPrefix = "A";
+		
+		QueryManager qm = new QueryManager(this._sPrefix + "2");
+		qm.selectMaxFrom(Field.effdt, record);
+		
+		for(int i = 0 ; i < keys.length; i++) {
+			qm.addClausuleSame(keys[i], this.fieldPrefix() + keys[i].field().toUpperCase());
+		}
+		qm.addClausuleLessSame(Field.effdt, "CURDATE()");
+		
+		this._lsClausules.add(Field.effdt + " = (" + qm.getQueryTxt() + ")");
 	}
 
 	private void armarQuery() {
@@ -185,6 +214,10 @@ public class QueryManager {
 		}
 		
 		this.sqlTxt = this.sqlTxt + ")";
+	}
+	
+	private String toDate(Fecha date) {
+		return "TO_DATE('" + date.getAno() + "-" + date.getSMes() + "-" + date.getSDia() + "','YYYY-MM-DD')";
 	}
 	
 	/* Metodos de seguimiento. */

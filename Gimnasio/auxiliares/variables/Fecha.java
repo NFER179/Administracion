@@ -3,6 +3,7 @@ package variables;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Fecha {
 
@@ -29,7 +30,6 @@ public class Fecha {
 	}
 
 	public boolean isToday() {
-		/* Falta desarrollar metodo. */
 		DateFormat asf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
 		
@@ -43,14 +43,14 @@ public class Fecha {
 		}
 	}
 
-	public String ToSqlDate(String db) {
-		switch(db.toUpperCase()) {
-			case "MYSQL":
-		return "STR_TO_DATE('" + this.getStrFecha() + "','%Y/%m/%d')";
-		default:
-			return "";
-		}
-	}
+//	public String ToSqlDate(String db) {
+//		switch(db.toUpperCase()) {
+//			case "MYSQL":
+//		return "STR_TO_DATE('" + this.getStrFecha() + "','%Y/%m/%d')";
+//		default:
+//			return "";
+//		}
+//	}
 
 	/* Retorna la cantidad de días desde la fecha hasta hoy. */
 	public int daysToToday() {
@@ -130,13 +130,32 @@ public class Fecha {
 		
 		return Fecha.getFecha(asf.format(cal.getTime())); 
 	}
+	
+	public static int daysForMonth(Fecha fecha) {
+		Calendar cal = new GregorianCalendar(fecha.getAno(), fecha.getMes(), fecha.getDia());
+		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
 
 	public int getDia() {
 		return _dia;
 	}
 
+	public String getSDia() {
+		if (this._dia < 10){
+			return "0" + this._dia;
+		}
+		return Integer.toString(this._dia);
+	}
+	
 	public int getMes() {
 		return _mes;
+	}
+	
+	public String getSMes() {
+		if (this._mes < 10){
+			return "0" + this._mes;
+		}
+		return Integer.toString(this._mes);
 	}
 
 	public int getAno() {

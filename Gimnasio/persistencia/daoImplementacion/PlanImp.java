@@ -37,7 +37,7 @@ public class PlanImp implements PlanDAO {
 		//qm.imprimirQuery("PlanImp.getPlan()");
 		
 		try {
-			stm = this.cnt.getStament();
+			stm = this.cnt.getStatement();
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
@@ -73,13 +73,13 @@ public class PlanImp implements PlanDAO {
 		//qm.imprimirQuery("PlanImp.class.getPlanDetail");
 		
 		try {
-			stm = this.cnt.getStament();
+			stm = this.cnt.getStatement();
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
 				planDetalle = new PlanDetalleDTO(rs.getString(Field.plan.field())
 						, Fecha.getFecha(rs.getString(Field.effdt.field()))
-						, rs.getInt(Field.diasAlMes.field())
+						, rs.getInt(Field.diasDelPlan.field())
 						, rs.getInt(Field.precio.field()));
 			}
 		}

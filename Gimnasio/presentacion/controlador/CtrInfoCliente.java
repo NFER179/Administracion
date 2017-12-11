@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 
 import dto.ClienteDTO;
 import modelo.ClienteModelo;
+import modelo.EntryManagerModelo;
 import vista.VtInfoCliente;
 
 public class CtrInfoCliente implements ActionListener {
 
 	private ClienteModelo mdlCliente;
+	private EntryManagerModelo mdlEntryMgr;
 	private ClienteDTO _clte;
 	private VtInfoCliente vt;
 	
@@ -23,8 +25,10 @@ public class CtrInfoCliente implements ActionListener {
 	public void init() {
 		/* 1) Falta funcion que resta un dia del plan en que esta anotado el cliente. */
 		/* Controla que tenga dias disponibles para usar */
-		if (this.mdlCliente.canPass(this._clte)) {
-			this.mdlCliente.registrarIngreso(this._clte);
+		if (this.mdlEntryMgr.canPass(this._clte)) {
+//		if (this.mdlCliente.canPass(this._clte)) {
+//			this.mdlCliente.registrarIngreso(this._clte);
+			this.mdlEntryMgr.registrarIngreso(this._clte);
 			this.vt.getTxtVencimiento().setText("Vigente");
 			this.vt.getTxtVencimiento().setBackground(Color.GREEN);
 		}

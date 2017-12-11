@@ -43,7 +43,7 @@ public class SystemImp implements SystemDAO {
 		String planName = "";
 		
 		try {
-			stm = this.cnt.getStament();
+			stm = this.cnt.getStatement();
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
@@ -77,7 +77,7 @@ public class SystemImp implements SystemDAO {
 		Statement stm;
 		
 		try {
-			stm = this.cnt.getStament();
+			stm = this.cnt.getStatement();
 			stm.executeUpdate(qm.getInsertTxt());
 		}
 		catch(Exception e) {
@@ -104,7 +104,7 @@ public class SystemImp implements SystemDAO {
 		Fecha registration = Fecha.getFecha(null);
 		
 		try {
-			stm = this.cnt.getStament();
+			stm = this.cnt.getStatement();
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
@@ -132,7 +132,7 @@ public class SystemImp implements SystemDAO {
 		/* Imprime la query. */
 		//qm.imprimirQuery("SystemImp.getNumberofInFrom");
 		
-		Statement stm = this.cnt.getStament();
+		Statement stm = this.cnt.getStatement();
 		ResultSet rs = null;
 		int into = 0;
 		

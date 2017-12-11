@@ -30,28 +30,29 @@ public class ClienteModelo {
 		}
 	}
 
-	/* falta logica de que si ingreso hoy no le vuelva a restar dia. */
-	public void registrarIngreso(ClienteDTO Clte) {
-		if(this.clte.ingresoHoy(Clte)) {
-			
-		}
-		else {
-			SystemModelo sys = new SystemModelo();
-			sys.registerCustomer(Clte);
-		}
-	}
+//	/* falta logica de que si ingreso hoy no le vuelva a restar dia. */
+//	public void registrarIngreso(ClienteDTO Clte) {
+//		if(this.clte.ingresoHoy(Clte)) {
+//			
+//		}
+//		else {
+//			SystemModelo sys = new SystemModelo();
+//			sys.registerCustomer(Clte);
+//		}
+//	}
+	
 
-	public boolean canPass(ClienteDTO Clte) {
-		if (this.clte.ingresoHoy(Clte))
-			return true;
-		else {
-			PlanModelo mdlPlan = new PlanModelo();
-			/*dias mayores a 4 y vencimiento mayor igual a hoy*/
-			if (mdlPlan.daysToUseForCustomer(Clte) > 0) {
-				return true;
-			}
-			else
-				return false;
-		}
-	}
+//	public boolean canPass(ClienteDTO Clte) {
+//		if (this.clte.ingresoHoy(Clte))
+//			return true;
+//		else {
+//			PlanModelo mdlPlan = new PlanModelo();
+//			/*dias mayores a 4 y vencimiento mayor igual a hoy*/
+//			if (mdlPlan.daysToUseForCustomer(Clte) > 0) {
+//				return true;
+//			}
+//			else
+//				return false;
+//		}
+//	}
 }
