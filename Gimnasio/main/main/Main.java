@@ -1,9 +1,7 @@
 package main;
 
 import javax.swing.UIManager;
-
 import controlador.CtrPrincipal;
-import makeQuery.QueryManager;
 
 public class Main {
 

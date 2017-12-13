@@ -20,7 +20,7 @@ public class EntryManagerImp implements EntryManagerDAO {
 	public EntryManagerImp() {
 		this.cnt = ConectorDB.getInstancia();
 	}
-	
+
 	@Override
 	public EntryRegistrationDTO obtenerUltimoEntRegistrationFor(ClienteDTO clte) {
 		
@@ -57,4 +57,28 @@ public class EntryManagerImp implements EntryManagerDAO {
 		return erDto;
 	}
 
+	@Override
+	public void registerEntryFor(ClienteDTO customer, Fecha today) {
+		QueryManager qm = new QueryManager();
+		
+		qm.insert(new Field[] {Field.id_cliente, Field.effdt}, 
+				new String[] {QueryManager.insertCommon(customer.getIdCliente().getIdCliente()),
+						QueryManager.toDateFormat(today)}, 
+				Record.cliente_presentismo);
+		
+		qm.imprimirInsert("EntryManagerImp.registerEntryFor()");
+		
+		Statement st;
+		
+		try {
+			st = this.cnt.getStatement();
+			st.executeUpdate(qm.getInsertTxt());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+	}
 }

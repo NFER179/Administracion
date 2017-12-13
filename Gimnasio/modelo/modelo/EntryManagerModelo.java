@@ -46,7 +46,7 @@ public class EntryManagerModelo {
 			PlanDetalleDTO planLineDto = planLineMdl.getPlanLineTo(insDto.getPlan(), insDto.getInscription()); 
 			
 			if(insDto.getInscription().daysToToday() <= Fecha.daysForMonth(insDto.getInscription())) {
-				if(planLineDto.get_iDiasAlMes() > this.amountOfIncomeForFrom(clte, insDto.getInscription())) {
+				if(planLineDto.getDiasAlMes() > this.amountOfIncomeForFrom(clte, insDto.getInscription())) {
 					return true;
 				}
 				else {

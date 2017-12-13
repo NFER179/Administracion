@@ -7,7 +7,7 @@ import dto.InscriptionDTO;
 
 public class InscriptionModelo {
 
-	InscriptionDAO _insc;
+	private InscriptionDAO _insc;
 	
 	public InscriptionModelo() {
 		this._insc = new InscriptionImplementacion();

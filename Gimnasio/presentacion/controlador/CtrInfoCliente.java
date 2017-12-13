@@ -1,23 +1,21 @@
 package controlador;
 
 import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import dto.ClienteDTO;
-import modelo.ClienteModelo;
 import modelo.EntryManagerModelo;
 import vista.VtInfoCliente;
 
 public class CtrInfoCliente implements ActionListener {
 
-	private ClienteModelo mdlCliente;
 	private EntryManagerModelo mdlEntryMgr;
 	private ClienteDTO _clte;
 	private VtInfoCliente vt;
 	
 	public CtrInfoCliente(ClienteDTO cliente) {
-		this.mdlCliente = new ClienteModelo();
 		this._clte = cliente;
 		this.vt = new VtInfoCliente(this._clte); 
 	}

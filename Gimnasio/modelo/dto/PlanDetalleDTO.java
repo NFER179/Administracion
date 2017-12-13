@@ -4,37 +4,43 @@ import variables.Fecha;
 
 public class PlanDetalleDTO {
 
-	private String _sIdPlan;
-	private Fecha _fEffdt;
-	private String _sTipoPlan;
-	private int _iDiasAlMes;
-	private int _iPrecio;
+	private String IdPlan;
+	private Fecha Effdt;
+	private String TipoPlan;
+	private int DuravilityOfPlan;
+	private int DiasAlMes;
+	private int Precio;
 	
-	public PlanDetalleDTO(String idPlan, Fecha effdt, String tipoPlan, int diasAlMes, int precio) {
-		this._sIdPlan = idPlan;
-		this._fEffdt = effdt;
-		this._sTipoPlan = tipoPlan;
-		this._iDiasAlMes = diasAlMes;
-		this._iPrecio = precio;
+	public PlanDetalleDTO(String idPlan, Fecha effdt, String tipoPlan, int duravilityOfPlan, int diasAlMes, int precio) {
+		this.IdPlan = idPlan;
+		this.Effdt = effdt;
+		this.TipoPlan = tipoPlan;
+		this.DuravilityOfPlan = duravilityOfPlan;
+		this.DiasAlMes = diasAlMes;
+		this.Precio = precio;
 	}
 
-	public String get_sIdPlan() {
-		return _sIdPlan;
+	public String getIdPlan() {
+		return IdPlan;
 	}
 
-	public Fecha get_fEffdt() {
-		return _fEffdt;
+	public Fecha getEffdt() {
+		return Effdt;
 	}
 	
-	public String get_sTipoPlan() {
-		return _sTipoPlan;
+	public String getTipoPlan() {
+		return TipoPlan;
 	}
 
-	public int get_iDiasAlMes() {
-		return _iDiasAlMes;
+	public int getDuravilityOfPlan() {
+		return DuravilityOfPlan;
 	}
 
-	public int get_iPrecio() {
-		return _iPrecio;
+	public int getDiasAlMes() {
+		return DiasAlMes;
+	}
+
+	public int getPrecio() {
+		return Precio;
 	}
 }

@@ -244,4 +244,8 @@ public class QueryManager {
 	public static String insertCommon(String value){
 		return "'" + value + "'";
 	}
+	
+	public static String toDateFormat(Fecha date) {
+		return "TO_DATE('" + date.getAno() + "-" + date.getSMes() + "-" + date.getSDia() + "','YYYY-MM-DD')";
+	}
 }

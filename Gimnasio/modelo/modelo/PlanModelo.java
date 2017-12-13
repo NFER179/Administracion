@@ -2,10 +2,7 @@ package modelo;
 
 import dao.PlanDAO;
 import daoImplementacion.PlanImp;
-import dto.ClienteDTO;
 import dto.PlanDTO;
-import dto.PlanDetalleDTO;
-import variables.Fecha;
 
 public class PlanModelo {
 

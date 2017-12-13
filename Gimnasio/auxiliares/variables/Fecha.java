@@ -130,10 +130,33 @@ public class Fecha {
 		
 		return Fecha.getFecha(asf.format(cal.getTime())); 
 	}
+
+
+	public static int daysForYear(Fecha date) {
+		int totalDays = 0;
+		Calendar cal;
+		
+		for (int i = 1; i <= 12; i++) {
+			cal = new GregorianCalendar(date.getAno(), i, date.getDia());
+			totalDays = totalDays + cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		}
+		
+		return totalDays;
+	}
 	
 	public static int daysForMonth(Fecha fecha) {
 		Calendar cal = new GregorianCalendar(fecha.getAno(), fecha.getMes(), fecha.getDia());
 		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
+	
+	public static Fecha addDays(Fecha date, int days) {
+
+		DateFormat asf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = new GregorianCalendar(date.getAno(), date.getMes(), date.getDia());
+		
+		cal.add(Calendar.DATE, days);
+		
+		return Fecha.getFecha(asf.format(cal.getTime()));
 	}
 
 	public int getDia() {

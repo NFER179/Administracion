@@ -94,7 +94,7 @@ public class ClienteImp implements ClienteDAO {
 		
 		QueryManager qm = new QueryManager();
 		qm.selectFieldFrom("'X'", Record.cliente);
-		qm.addClausuleSame(Field.id_cliente, qm.insertCommon(idCliente.getIdCliente()));
+		qm.addClausuleSame(Field.id_cliente, QueryManager.insertCommon(idCliente.getIdCliente()));
 		
 		Statement stm;
 		ResultSet rs = null;

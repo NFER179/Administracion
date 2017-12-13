@@ -1,7 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -10,9 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import dao.SystemDAO;
 import dto.ClienteDTO;
-import modelo.SystemModelo;
+import modelo.UserPlanModelo;
 
 public class VtInfoCliente extends JFrame {
 
@@ -22,7 +21,7 @@ public class VtInfoCliente extends JFrame {
 	private Font txtF = new Font(null, 0, 20);
 	
 	/* Modelos. */
-	private SystemModelo mdlSys;
+	private UserPlanModelo mdlUP = new UserPlanModelo();
 	
 	/* Object Position. */
 	private int lblDescription = 5;
@@ -90,7 +89,8 @@ public class VtInfoCliente extends JFrame {
 		this.lblDiasRestantes.setFont(this.txtF);
 		this.contentPane.add(this.lblDiasRestantes);
 		
-		this.txtDiasRestantes = new JTextField(this.mdlSys.getRestOfDay(clte));
+//		this.txtDiasRestantes = new JTextField(this.mdlSys.getRestOfDay(clte));
+		this.txtDiasRestantes = new JTextField(this.mdlUP.getRestOfDay(clte));
 		this.txtDiasRestantes.setColumns(10);
 		this.txtDiasRestantes.setBounds(this.txtFieldInformation, 90, 200, 30);
 		this.txtDiasRestantes.setEnabled(false);
@@ -102,7 +102,8 @@ public class VtInfoCliente extends JFrame {
 		this.lblFechaVencimiento.setFont(this.txtF);
 		this.contentPane.add(this.lblFechaVencimiento);
 		
-		this.txtFechaVencimiento = new JTextField(this.mdlSys.getExpirationDatePlan(clte));
+//		this.txtFechaVencimiento = new JTextField(this.mdlSys.getExpirationDatePlan(clte));
+		this.txtFechaVencimiento = new JTextField(this.mdlUP.getExpirationDatePlanFor(clte));
 		this.txtFechaVencimiento.setColumns(10);
 		this.txtFechaVencimiento.setBounds(this.txtFieldInformation, 135, 200, 30);
 		this.txtFechaVencimiento.setEnabled(false);

@@ -1,9 +1,9 @@
 package thread;
 
 import controlador.CtrPrincipal;
+
 import modelo.ClienteModelo;
 import variables.IdCliente;
-import vista.Principal;
 
 public class LectorCod extends Thread {
 

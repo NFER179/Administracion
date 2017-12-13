@@ -1,9 +1,5 @@
 package dao;
 
-import dto.ClienteDTO;
-import dto.PlanDTO;
-import variables.Fecha;
-
 public interface SystemDAO {
 
 	/**
