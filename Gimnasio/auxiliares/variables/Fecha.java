@@ -7,26 +7,14 @@ import java.util.GregorianCalendar;
 
 public class Fecha {
 
-	private int _dia;
-	private int _mes;
-	private int _ano;
+	private int iDia;
+	private int iMes;
+	private int iAno;
 	
 	public Fecha(int dia, int mes, int ano) {
-		this._dia = dia;
-		this._mes = mes;
-		this._ano = ano;
-	}
-	
-	public String getStrFecha() {
-		String dia = Integer.toString(this._dia);
-		if (dia.length() < 2)
-			dia = "0" + dia;
-		
-		String mes = Integer.toString(this._mes);
-		if (mes.length() < 2)
-			mes = "0" + mes;
-		
-		return Integer.toString(this._ano) + "/" + mes + "/" + dia;
+		this.iDia = dia;
+		this.iMes = mes;
+		this.iAno = ano;
 	}
 
 	public boolean isToday() {
@@ -35,7 +23,7 @@ public class Fecha {
 		
 		Fecha today = Fecha.getFecha(asf.format(cal.getTime()));
 		
-		if (today.getAno() == this._ano && today.getMes() == this._mes && today.getDia() == this._dia) {
+		if (today.getAno() == this.iAno && today.getMes() == this.iMes && today.getDia() == this.iDia) {
 			return true;
 		}
 		else {
@@ -62,7 +50,7 @@ public class Fecha {
 		int dias = 0; 
 		int[] diasEnMeses = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
-		for (int anio = this._ano + 1 ; anio < today.getAno(); anio++) {
+		for (int anio = this.iAno + 1 ; anio < today.getAno(); anio++) {
 			
 			dias += 365;
 			if ((anio % 4 == 0) && ((anio % 100 != 0) || (anio % 400 == 0))) {
@@ -70,8 +58,8 @@ public class Fecha {
 			}
 		}  
 		
-		if (today.getAno() - this._ano >= 1) {
-			for (int mesInicio = this._mes +1; mesInicio <= 12; mesInicio++) {
+		if (today.getAno() - this.iAno >= 1) {
+			for (int mesInicio = this.iMes +1; mesInicio <= 12; mesInicio++) {
 				dias += diasEnMeses[mesInicio - 1];
 			}
 		
@@ -85,7 +73,7 @@ public class Fecha {
 			
 		}
 		else {
-			for (int meses = this._mes ; meses < today._mes; meses ++) {
+			for (int meses = this.iMes ; meses < today.iMes; meses ++) {
 				dias += diasEnMeses[meses];
 			}
 			
@@ -96,11 +84,11 @@ public class Fecha {
 			dias += 1;
 		}
 		
-		if(today._mes == this._mes) {
-			dias += today.getDia() - this._dia + 1;
+		if(today.iMes == this.iMes) {
+			dias += today.getDia() - this.iDia + 1;
 		}
 		else {
-			dias += diasEnMeses[this._mes - 1] - this._dia;
+			dias += diasEnMeses[this.iMes - 1] - this.iDia;
 			
 			dias += today.getDia();
 		}
@@ -112,7 +100,7 @@ public class Fecha {
 	/**
 	 * @author nfernandez
 	 * @param fecha Format of string "yyyy-mm-dd"
-	 * @return Fecha If string is null return 01-01-1900
+	 * @return Fecha If string is null return 1900-01-01
 	 */
 	public static Fecha getFecha(String fecha) {
 		if (fecha == null)
@@ -158,30 +146,56 @@ public class Fecha {
 		
 		return Fecha.getFecha(asf.format(cal.getTime()));
 	}
+	
+	public static String[] getLastHundredArrayList() {
+		
+		Fecha f = Fecha.Today();
+		
+		int año = f.getAno();
+		String[] list = new String[año - 1899];
+		
+		for (int i = 0; 1900 + i <= año; i++) {
+			list[i] = Integer.toString(i + 1900);
+		}
+		
+		return list;
+	}
 
 	public int getDia() {
-		return _dia;
+		return iDia;
 	}
 
 	public String getSDia() {
-		if (this._dia < 10){
-			return "0" + this._dia;
+		if (this.iDia < 10){
+			return "0" + this.iDia;
 		}
-		return Integer.toString(this._dia);
+		return Integer.toString(this.iDia);
 	}
 	
 	public int getMes() {
-		return _mes;
+		return iMes;
 	}
 	
 	public String getSMes() {
-		if (this._mes < 10){
-			return "0" + this._mes;
+		if (this.iMes < 10){
+			return "0" + this.iMes;
 		}
-		return Integer.toString(this._mes);
+		return Integer.toString(this.iMes);
 	}
 
 	public int getAno() {
-		return _ano;
+		return iAno;
+	}
+	
+	public String getStrFecha() {
+		String dia = Integer.toString(this.iDia);
+		if (dia.length() < 2)
+			dia = "0" + dia;
+		
+		String mes = Integer.toString(this.iMes);
+		if (mes.length() < 2)
+			mes = "0" + mes;
+		
+		return dia + "/" + mes + "/" + Integer.toString(this.iAno);
 	}
 }

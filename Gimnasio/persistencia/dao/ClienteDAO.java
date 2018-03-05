@@ -21,6 +21,19 @@ public interface ClienteDAO {
 
 	/**
 	 * @author nfernandez
+	 * @param N/N
+	 * @return Max customer ID.
+	 */
+	public IdCliente getMaxCustomerId();
+
+	/**
+	 * @author nfernandez
+	 * @param customer
+	 */
+	public void insertCustomer(ClienteDTO customer);
+
+	/**
+	 * @author nfernandez
 	 * @param _clte
 	 * @return true is customer take other class before.
 	 */

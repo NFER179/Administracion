@@ -5,17 +5,18 @@ import variables.IdCliente;
 
 public class ClienteDTO {
 
-	private IdCliente _idCliente;
-	private String _nombre;
-	private String _apellido;
-	private String _nacionalidad;
-	private String _tipoDoc; 
-	private String _numDocumento;
-	private Fecha _fechaNacimiento;
-	private String _ciudad; 
-	private String _localidad;
+	private IdCliente idCliente;
+	private String sNombre;
+	private String sApellido;
+	private String sNacionalidad;
+	private String sTipoDoc; 
+	private String sNumDocumento;
+	private Fecha daeFechaNacimiento;
+	private String sCiudad; 
+	private String sLocalidad;
+	private Fecha dateSignon;
 	
-	public ClienteDTO(IdCliente IdCliente, String Nombre, String Apellido, String Nacionalidad,
+	/*public ClienteDTO(IdCliente IdCliente, String Nombre, String Apellido, String Nacionalidad,
 			String TipoDoc, String NumDoc, Fecha FechaNacimiento, String Ciudad, String Localidad) {
 		this._idCliente = IdCliente;
 		this._nombre = Nombre;
@@ -26,41 +27,55 @@ public class ClienteDTO {
 		this._fechaNacimiento = FechaNacimiento;
 		this._ciudad = Ciudad;
 		this._localidad = Localidad;
+	}*/
+	
+	public ClienteDTO(IdCliente IdCliente, String Nombre, String Apellido, String NumDoc
+			, Fecha FechaNacimiento, Fecha Signon) {
+		this.idCliente = IdCliente;
+		this.sNombre = Nombre;
+		this.sApellido = Apellido;
+		this.sNumDocumento = NumDoc;
+		this.daeFechaNacimiento = FechaNacimiento;
+		this.dateSignon = Signon;
 	}
 
 	public IdCliente getIdCliente() {
-		return _idCliente;
+		return idCliente;
 	}
 
 	public String getNombre() {
-		return this._nombre;
+		return this.sNombre;
 	}
 
 	public String getApellido() {
-		return this._apellido;
+		return this.sApellido;
 	}
 
 	public String getNacionalidad() {
-		return this._nacionalidad;
+		return this.sNacionalidad;
 	}
 
 	public String getTipoDoc() {
-		return this._tipoDoc;
+		return this.sTipoDoc;
 	}
 
 	public String getNumDocumento() {
-		return this._numDocumento;
+		return this.sNumDocumento;
 	}
 
 	public Fecha getFechaNacimiento() {
-		return this._fechaNacimiento;
+		return this.daeFechaNacimiento;
 	}
 
 	public String getCiudad() {
-		return this._ciudad;
+		return this.sCiudad;
 	}
 
 	public String getLocalidad() {
-		return this._localidad;
+		return this.sLocalidad;
+	}
+	
+	public Fecha getSignon() {
+		return this.dateSignon;
 	}
 }

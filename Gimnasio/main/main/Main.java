@@ -2,6 +2,7 @@ package main;
 
 import javax.swing.UIManager;
 import controlador.CtrPrincipal;
+import managers.SessionManager;
 
 public class Main {
 
@@ -13,9 +14,10 @@ public class Main {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 		}
 		catch(Exception e) {
-			
-			
+			e.printStackTrace();
 		}
+		
+		SessionManager.createNewSession("ESP");
 		
 		CtrPrincipal ctr01 = new CtrPrincipal();
 		ctr01.init();

@@ -31,18 +31,38 @@ public class CtrPrincipal implements ActionListener {
 	}
 	
 	public void init() {
+		this.loadCustomer();
 		this.vtPrincipal.setVisible(true);
 		this.threadLector.run();
 	}
 	
+	private void loadCustomer() {
+		this.vtPrincipal.getModelTableUser().setRowCount(0);
+		this.vtPrincipal.getModelTableUser().setColumnCount(0);
+		this.vtPrincipal.getModelTableUser().setColumnIdentifiers(
+				this.vtPrincipal.getTableUserHeader());
+		
+		for(int i = 0; i < 10; i++) {
+			Object[] fila = {Integer.toString(i), "nicolas"};
+			this.vtPrincipal.getModelTableUser().addRow(fila);
+		}
+		
+		this.vtPrincipal.getTableUser().setModel(this.vtPrincipal.getModelTableUser());;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtPrincipal.getBtnRegistrarCliente()) {
-			
+			this.registerNewCustomer();
 		}
 		else if(arg0.getSource() == this.vtPrincipal.getBtnSalir()) {
 			this.salir();
 		}
+	}
+
+	private void registerNewCustomer() {
+		CtrCustomerCreation ctrCC = new CtrCustomerCreation();
+		ctrCC.init();
 	}
 
 	/**

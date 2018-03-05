@@ -8,7 +8,7 @@ import dao.ClienteDAO;
 import dbVars.Field;
 import dbVars.Record;
 import dto.ClienteDTO;
-import makeQuery.QueryManager;
+import managers.QueryManager;
 import variables.Fecha;
 import variables.IdCliente;
 
@@ -26,8 +26,10 @@ public class ClienteImp implements ClienteDAO {
 		Statement stm;
 		
 		QueryManager qm = new QueryManager();
-		qm.selectAllFrom(Record.cliente);
-		qm.addClausuleSame(Field.id_cliente.field(), IdClt.getIdCliente());
+		qm.selectAllFrom(Record.customer_tbl);
+		qm.addClausuleSame(Field.customer_id.field(), IdClt.getIdCliente());
+		
+		//qm.imprimirQuery("ClienteImp.getCliente()");
 		
 		ResultSet rs = null;
 		ClienteDTO cliente = null;
@@ -37,7 +39,7 @@ public class ClienteImp implements ClienteDAO {
 			rs = stm.executeQuery(qm.getQueryTxt());
 			
 			while(rs.next()) {
-				cliente = new ClienteDTO(IdCliente.getStrId(rs.getString(Field.id_cliente.field()))
+				/*cliente = new ClienteDTO(IdCliente.getStrId(rs.getString(Field.id_cliente.field()))
 						, rs.getString(Field.nombre.field())
 						, rs.getString(Field.apellido.field())
 						, rs.getString(Field.nacionalidad.field())
@@ -46,6 +48,13 @@ public class ClienteImp implements ClienteDAO {
 						, Fecha.getFecha(rs.getString(Field.fecha_nacimiento.field()))
 						, rs.getString(Field.ciudad.field())
 						, rs.getString(Field.localidad.field()));
+						*/
+				cliente = new ClienteDTO(IdCliente.getStrId(rs.getString(Field.customer_id.field()))
+						, rs.getString(Field.name.field())
+						, rs.getString(Field.last_name.field())
+						, rs.getString(Field.num_documento.field())
+						, Fecha.getFecha(rs.getString(Field.birthday.field()))
+						, Fecha.getFecha(rs.getString(Field.sign_on.field())));
 			}
 		}
 		catch(Exception e) {
@@ -62,7 +71,7 @@ public class ClienteImp implements ClienteDAO {
 	public int getIdLength() {
 		
 		QueryManager qm = new QueryManager("hola");
-		qm.selectMaxFrom(Field.id_cliente, Record.cliente);
+		qm.selectMaxFrom(Field.customer_id, Record.customer_tbl);
 		
 		Statement stm;
 		ResultSet rs = null;
@@ -93,8 +102,8 @@ public class ClienteImp implements ClienteDAO {
 	public boolean concideIdCliente(IdCliente idCliente) {
 		
 		QueryManager qm = new QueryManager();
-		qm.selectFieldFrom("'X'", Record.cliente);
-		qm.addClausuleSame(Field.id_cliente, QueryManager.insertCommon(idCliente.getIdCliente()));
+		qm.selectFieldFrom("'X'", Record.customer_tbl);
+		qm.addClausuleSame(Field.customer_id, QueryManager.insertCommon(idCliente.getIdCliente()));
 		
 		Statement stm;
 		ResultSet rs = null;
@@ -119,6 +128,66 @@ public class ClienteImp implements ClienteDAO {
 		}
 		
 		return ((exists.isEmpty()) ? false : true);
+	}
+
+	@Override
+	public IdCliente getMaxCustomerId() {
+		
+		QueryManager qm = new QueryManager("CUSTOMER");
+		qm.selectMaxFrom(Field.customer_id, Record.customer_tbl);
+		
+		//qm.imprimirQuery("CLienteImp.getMaxCustomerId()");
+		
+		Statement stm = this.cnt.getStatement();
+		IdCliente customerID = new IdCliente("0");
+				
+		try {
+			ResultSet rs = stm.executeQuery(qm.getQueryTxt());
+			while ( rs.next() ) {
+				customerID = new IdCliente(rs.getString(Field.customer_id.field()));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
+		
+		return customerID;
+	}
+
+	@Override
+	public void insertCustomer(ClienteDTO customer) {
+		
+		QueryManager qm = new QueryManager("CUSTOMER");
+		Field[] fields = new Field[] {Field.customer_id, 
+				Field.name, 
+				Field.last_name, 
+				Field.num_documento,
+				Field.birthday,
+				Field.sign_on};
+		String[] values = new String[] {QueryManager.insertCommon(customer.getIdCliente().getIdCliente()),
+				QueryManager.insertCommon(customer.getNombre()),
+				QueryManager.insertCommon(customer.getApellido()),
+				QueryManager.insertCommon(customer.getNumDocumento()),
+				QueryManager.toDateFormat(customer.getFechaNacimiento()),
+				QueryManager.toDateFormat(customer.getSignon())};
+		qm.insert(fields, values, Record.customer_tbl);
+		
+		//qm.imprimirInsert("ClienteImp.insertCustomer");
+		
+		Statement stm = this.cnt.getStatement();
+		
+		try {
+			stm.executeLargeUpdate(qm.getInsertTxt());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.cnt.cerrarConexion();
+		}
 	}
 
 //	@Override

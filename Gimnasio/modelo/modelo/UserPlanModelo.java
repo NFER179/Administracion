@@ -27,7 +27,7 @@ public class UserPlanModelo {
 		return daysInPlan - amountOfIncome;
 	}
 
-	public String getExpirationDatePlanFor(ClienteDTO customer) {
+	public Fecha getExpirationDatePlanFor(ClienteDTO customer) {
 		InscriptionModelo mdlIns = new InscriptionModelo();
 		InscriptionDTO dtoIns = mdlIns.lastInscriptionFor(customer);
 		
@@ -36,7 +36,7 @@ public class UserPlanModelo {
 		
 		Fecha ExpirationDate = Fecha.addDays(dtoIns.getInscription(), this.getDurationOfPlan(dtoIns, dtoPD));
 		
-		return ExpirationDate.getStrFecha();
+		return ExpirationDate;
 	}
 
 	private int getDurationOfPlan(InscriptionDTO dtoInscription, PlanDetalleDTO dtoPlanDetalle) {

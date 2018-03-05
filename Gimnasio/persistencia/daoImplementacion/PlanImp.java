@@ -7,12 +7,10 @@ import conexion.ConectorDB;
 import dao.PlanDAO;
 import dbVars.Field;
 import dbVars.Record;
-import dto.ClienteDTO;
 import dto.PlanDTO;
 import dto.PlanDetalleDTO;
-import makeQuery.QueryManager;
+import managers.QueryManager;
 import variables.Fecha;
-import variables.IdCliente;
 
 public class PlanImp implements PlanDAO {
 
@@ -42,7 +40,7 @@ public class PlanImp implements PlanDAO {
 			
 			while(rs.next()) {
 				plan = new PlanDTO(rs.getString(Field.plan.field())
-						, rs.getString(Field.descripcion.field()));
+						, rs.getString(Field.description.field()));
 			}
 		}
 		catch(Exception e) {
@@ -61,16 +59,14 @@ public class PlanImp implements PlanDAO {
 		
 		QueryManager qm = new QueryManager();
 		qm.selectAllFrom(Record.plan_line);
-		qm.addClausuleSame(Field.plan, qm.insertCommon(customerPlan.get_sPlan()));
+		qm.addClausuleSame(Field.plan, QueryManager.insertCommon(customerPlan.get_sPlan()));
 		
 		Statement stm;
 		ResultSet rs;
-		PlanDetalleDTO planDetalle = new PlanDetalleDTO("SIN PLAN"
-				, Fecha.getFecha(null)
-				, 0
-				, 0);
+		PlanDetalleDTO planDetalle = null;
 		
-		//qm.imprimirQuery("PlanImp.class.getPlanDetail");
+		/* Se imprime la query como seguimiento. */
+//		qm.imprimirQuery("PlanImp.class.getPlanDetail");
 		
 		try {
 			stm = this.cnt.getStatement();
@@ -79,8 +75,10 @@ public class PlanImp implements PlanDAO {
 			while(rs.next()) {
 				planDetalle = new PlanDetalleDTO(rs.getString(Field.plan.field())
 						, Fecha.getFecha(rs.getString(Field.effdt.field()))
-						, rs.getInt(Field.diasDelPlan.field())
-						, rs.getInt(Field.precio.field()));
+						, rs.getString(Field.plan_type.field())
+						, rs.getInt(Field.duravilityOfPlan.field())
+						, rs.getInt(Field.faysOfPlan.field())
+						, rs.getInt(Field.amount.field()));
 			}
 		}
 		catch(Exception e) {

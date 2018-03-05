@@ -26,6 +26,12 @@ public class IdCliente {
 		}
 	}
 
+	public void plus(int i) {
+		int iCustomerID = Integer.parseInt(this.IdCliente);
+		this.IdCliente = Integer.toString(iCustomerID + i);
+		this.cargarCerosIzq();
+	}
+	
 	public String getIdCliente() {
 		return IdCliente;
 	}

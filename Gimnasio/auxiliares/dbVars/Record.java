@@ -1,12 +1,13 @@
 package dbVars;
 
 public enum Record {
-	cliente("CLIENTE"),
-	cliente_plan("CLIENTE_PLAN"),
-	cliente_presentismo("CLIENTE_PRESENTISMO"),
+	customer_tbl("CUSTOMER"),
+	customer_plan("CUSTOMER_PLAN"),
+	customer_pay("CUSTOMER_PAY"),
 	config("CONFIG"),
 	plan_hdr("PLAN_HDR"),
-	plan_line("PLAN_LINE");
+	plan_line("PLAN_LINE"), 
+	message_tbl("MESSAGE_TBL");
 
 	private String record;
 	

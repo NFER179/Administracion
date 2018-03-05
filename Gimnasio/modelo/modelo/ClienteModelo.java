@@ -30,6 +30,20 @@ public class ClienteModelo {
 		}
 	}
 
+	public IdCliente getNewCustomerId() {
+		IdCliente customerId = this.clte.getMaxCustomerId(); 
+		customerId.plus(1);
+		return customerId;
+	}
+
+	/**
+	 * @author nfernandez
+	 * @param customer
+	 */
+	public void registryCustomer(ClienteDTO customer) {
+		this.clte.insertCustomer(customer);
+	}
+
 //	/* falta logica de que si ingreso hoy no le vuelva a restar dia. */
 //	public void registrarIngreso(ClienteDTO Clte) {
 //		if(this.clte.ingresoHoy(Clte)) {

@@ -19,8 +19,13 @@ public class EntryManagerModelo {
 	public boolean ingresoHoy(ClienteDTO clte) {
 		EntryRegistrationDTO er = this._EtrMng.obtenerUltimoEntRegistrationFor(clte);
 		
-		if (er.getFechaIngreso().isToday())
-			return true;
+		if(er != null) {
+			if (er.getFechaIngreso().isToday())
+				return true;
+			else {
+				return false;
+			}
+		}
 		else
 			return false;
 	}
@@ -42,19 +47,25 @@ public class EntryManagerModelo {
 			InscriptionModelo insMdl = new InscriptionModelo();
 			InscriptionDTO insDto = insMdl.lastInscriptionFor(clte);
 			
-			PlanDetalleModelo planLineMdl = new PlanDetalleModelo();
-			PlanDetalleDTO planLineDto = planLineMdl.getPlanLineTo(insDto.getPlan(), insDto.getInscription()); 
+			if(insDto == null) {
+				return false;
+			}
+			else {
 			
-			if(insDto.getInscription().daysToToday() <= Fecha.daysForMonth(insDto.getInscription())) {
-				if(planLineDto.getDiasAlMes() > this.amountOfIncomeForFrom(clte, insDto.getInscription())) {
-					return true;
+				PlanDetalleModelo planLineMdl = new PlanDetalleModelo();
+				PlanDetalleDTO planLineDto = planLineMdl.getPlanLineTo(insDto.getPlan(), insDto.getInscription()); 
+			
+				if(insDto.getInscription().daysToToday() <= Fecha.daysForMonth(insDto.getInscription())) {
+					if(planLineDto.getDiasAlMes() > this.amountOfIncomeForFrom(clte, insDto.getInscription())) {
+						return true;
+					}
+					else {
+						return false;
+					}
 				}
 				else {
 					return false;
 				}
-			}
-			else {
-				return false;
 			}
 		}
 	}

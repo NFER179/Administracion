@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 
 import dto.ClienteDTO;
 import modelo.EntryManagerModelo;
+import modelo.UserPlanModelo;
+import variables.Fecha;
 import vista.VtInfoCliente;
 
 public class CtrInfoCliente implements ActionListener {
@@ -23,10 +25,13 @@ public class CtrInfoCliente implements ActionListener {
 	public void init() {
 		/* 1) Falta funcion que resta un dia del plan en que esta anotado el cliente. */
 		/* Controla que tenga dias disponibles para usar */
+		this.mdlEntryMgr = new EntryManagerModelo();
+		
 		if (this.mdlEntryMgr.canPass(this._clte)) {
-//		if (this.mdlCliente.canPass(this._clte)) {
-//			this.mdlCliente.registrarIngreso(this._clte);
 			this.mdlEntryMgr.registrarIngreso(this._clte);
+			UserPlanModelo mdlUP = new UserPlanModelo();
+			this.vt.getTxtDiasRestantes().setText(Integer.toString(mdlUP.getRestOfDay(this._clte)));
+			this.vt.getTxtFechaVencimiento().setText(mdlUP.getExpirationDatePlanFor(this._clte).getStrFecha());
 			this.vt.getTxtVencimiento().setText("Vigente");
 			this.vt.getTxtVencimiento().setBackground(Color.GREEN);
 		}

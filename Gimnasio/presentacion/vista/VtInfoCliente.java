@@ -18,7 +18,7 @@ public class VtInfoCliente extends JFrame {
 	private JPanel contentPane;
 
 	/* Styles */
-	private Font txtF = new Font(null, 0, 20);
+	private Font txtFont = new Font(null, 0, 20);
 	
 	/* Modelos. */
 	private UserPlanModelo mdlUP = new UserPlanModelo();
@@ -60,7 +60,7 @@ public class VtInfoCliente extends JFrame {
 		/* Name */
 		this.lblNombre = new JLabel("Nombre:");
 		this.lblNombre.setBounds(this.lblDescription, 5, this.lblWidth, 30);
-		this.lblNombre.setFont(this.txtF);
+		this.lblNombre.setFont(this.txtFont);
 		this.contentPane.add(this.lblNombre);
 		
 		this.txtNombre = new JTextField(clte.getNombre());
@@ -68,56 +68,62 @@ public class VtInfoCliente extends JFrame {
 		this.txtNombre.setBounds(this.txtFieldInformation, 5, 200, 30);
 		this.txtNombre.setEnabled(false);
 		//this.txtNombre.setEditable(false);
-		this.txtNombre.setFont(txtF);
+		this.txtNombre.setFont(txtFont);
 		this.contentPane.add(this.txtNombre);
 		
 		this.lblApellido = new JLabel("Apellido:");
 		this.lblApellido.setBounds(this.lblDescription, 45, this.lblWidth, 30);
-		this.lblApellido.setFont(this.txtF);
+		this.lblApellido.setFont(this.txtFont);
 		this.contentPane.add(this.lblApellido);
 		
 		this.txtApellido = new JTextField(clte.getApellido());
 		this.txtApellido.setColumns(10);
 		this.txtApellido.setBounds(this.txtFieldInformation, 45, 200, 30);
 		this.txtApellido.setEnabled(false);
-		this.txtApellido.setFont(this.txtF);
+		this.txtApellido.setFont(this.txtFont);
 		this.contentPane.add(this.txtApellido);
 
 		/* Customer Information. */
 		this.lblDiasRestantes = new JLabel("Dias Restantes:");
 		this.lblDiasRestantes.setBounds(this.lblDescription, 90, this.lblWidth, 30);
-		this.lblDiasRestantes.setFont(this.txtF);
+		this.lblDiasRestantes.setFont(this.txtFont);
 		this.contentPane.add(this.lblDiasRestantes);
 		
-//		this.txtDiasRestantes = new JTextField(this.mdlSys.getRestOfDay(clte));
-		this.txtDiasRestantes = new JTextField(this.mdlUP.getRestOfDay(clte));
+		this.txtDiasRestantes = new JTextField("");
 		this.txtDiasRestantes.setColumns(10);
 		this.txtDiasRestantes.setBounds(this.txtFieldInformation, 90, 200, 30);
 		this.txtDiasRestantes.setEnabled(false);
-		this.txtDiasRestantes.setFont(this.txtF);
+		this.txtDiasRestantes.setFont(this.txtFont);
 		this.contentPane.add(this.txtDiasRestantes);
 		
 		this.lblFechaVencimiento = new JLabel("Fecha Vencimiento:");
 		this.lblFechaVencimiento.setBounds(this.lblDescription, 135, this.lblWidth, 30);
-		this.lblFechaVencimiento.setFont(this.txtF);
+		this.lblFechaVencimiento.setFont(this.txtFont);
 		this.contentPane.add(this.lblFechaVencimiento);
 		
-//		this.txtFechaVencimiento = new JTextField(this.mdlSys.getExpirationDatePlan(clte));
-		this.txtFechaVencimiento = new JTextField(this.mdlUP.getExpirationDatePlanFor(clte));
+		this.txtFechaVencimiento = new JTextField("");
 		this.txtFechaVencimiento.setColumns(10);
 		this.txtFechaVencimiento.setBounds(this.txtFieldInformation, 135, 200, 30);
 		this.txtFechaVencimiento.setEnabled(false);
-		this.txtFechaVencimiento.setFont(this.txtF);
+		this.txtFechaVencimiento.setFont(this.txtFont);
 		this.contentPane.add(this.txtFechaVencimiento);
 		
 		this.txtVencimento = new JTextField();
 		this.txtVencimento.setColumns(10);
 		this.txtVencimento.setBounds(this.txtFieldInformation, 180, 200, 30);
-		this.txtVencimento.setFont(txtF);
+		this.txtVencimento.setFont(txtFont);
 		this.txtVencimento.setEnabled(false);
 		this.contentPane.add(this.txtVencimento);
 	}
 	
+	public JTextField getTxtDiasRestantes() {
+		return txtDiasRestantes;
+	}
+
+	public JTextField getTxtFechaVencimiento() {
+		return txtFechaVencimiento;
+	}
+
 	public JTextField getTxtVencimiento() {
 		return this.txtVencimento;
 	}

@@ -1,4 +1,4 @@
-package makeQuery;
+package managers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ public class QueryManager {
 	}
 	
 	public void selectMaxFrom(Field field, Record record) {
-		this._asFields = new String[] {"MAX(%" + field.field() + ")"};
+		this._asFields = new String[] {"MAX(%" + field.field() + ") AS " + field.field()};
 		this._sRecord = record.record() + "%";
 	}
 	
@@ -128,7 +128,7 @@ public class QueryManager {
 		this._lsClausules.add(field01.field() + " <= " + field02.field());	
 	}
 	
-	private void addClausuleLessSame(Field field, String value) {
+	public void addClausuleLessSame(Field field, String value) {
 		this._lsClausules.add(field + " <= " + value);
 	}
 	
@@ -175,9 +175,9 @@ public class QueryManager {
 		for(int i = 0 ; i < keys.length; i++) {
 			qm.addClausuleSame(keys[i], this.fieldPrefix() + keys[i].field().toUpperCase());
 		}
-		qm.addClausuleLessSame(Field.effdt, "CURDATE()");
+		qm.addClausuleLessSame(Field.effdt.field(), "CURDATE()");
 		
-		this._lsClausules.add(Field.effdt + " = (" + qm.getQueryTxt() + ")");
+		this._lsClausules.add(Field.effdt.field() + " = (" + qm.getQueryTxt() + ")");
 	}
 
 	private void armarQuery() {
@@ -216,8 +216,12 @@ public class QueryManager {
 		this.sqlTxt = this.sqlTxt + ")";
 	}
 	
+	public static String toDateFormat(Fecha date) {
+		return "STR_TO_DATE('" + date.getAno() + "-" + date.getSMes() + "-" + date.getSDia() + "','%Y-%m-%d')";
+	}
+	
 	private String toDate(Fecha date) {
-		return "TO_DATE('" + date.getAno() + "-" + date.getSMes() + "-" + date.getSDia() + "','YYYY-MM-DD')";
+		return "STR_TO_DATE('" + date.getAno() + "-" + date.getSMes() + "-" + date.getSDia() + "','%Y-%m-%d')";
 	}
 	
 	/* Metodos de seguimiento. */
@@ -243,9 +247,5 @@ public class QueryManager {
 	
 	public static String insertCommon(String value){
 		return "'" + value + "'";
-	}
-	
-	public static String toDateFormat(Fecha date) {
-		return "TO_DATE('" + date.getAno() + "-" + date.getSMes() + "-" + date.getSDia() + "','YYYY-MM-DD')";
 	}
 }
